@@ -1,0 +1,12 @@
+C:\Data\Developement\Logging\Logging\DataService\DataService\bin\Debug\netcoreapp2.0\DataService.deps.json
+C:\Data\Developement\Logging\Logging\DataService\DataService\bin\Debug\netcoreapp2.0\DataService.dll
+C:\Data\Developement\Logging\Logging\DataService\DataService\bin\Debug\netcoreapp2.0\DataService.pdb
+C:\Data\Developement\Logging\Logging\DataService\DataService\bin\Debug\netcoreapp2.0\System.Data.SqlClient.dll
+C:\Data\Developement\Logging\Logging\DataService\DataService\bin\Debug\netcoreapp2.0\System.Data.SqlClient.xml
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.csproj.CoreCompileInputs.cache
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.AssemblyInfoInputs.cache
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.AssemblyInfo.cs
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.csproj.CopyComplete
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.dll
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.pdb
+C:\Data\Developement\Logging\Logging\DataService\DataService\obj\Debug\netcoreapp2.0\DataService.csprojAssemblyReference.cache

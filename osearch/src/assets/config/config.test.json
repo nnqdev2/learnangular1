@@ -1,0 +1,22 @@
+{
+    "env": {
+        "name": "TEST",
+        "urlSub": "hol_test"
+     },
+    "logging": {
+        "console": true,
+        "api": false
+    },
+    "caching": {
+        "cacheExpiryInMs": "43200000"
+    },
+    "apiServer": {
+        "hol": "http://deqwebdev/olprrapi_test/",
+        "lit": "http://deqwebdev/lit_maint/?appid=",
+        "addressContactVerify": "https://personator.melissadata.net/v3/WEB/ContactVerify/doContactVerify",
+        "ssrs": "http://deqsql3/reports/report/HOTCReports/"
+    },
+    "sts": {
+        "authority": "http://deqapp1/idsrv/"
+    }
+}

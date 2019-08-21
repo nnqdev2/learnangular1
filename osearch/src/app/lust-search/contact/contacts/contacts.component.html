@@ -1,0 +1,91 @@
+<mat-card>
+    <mat-card-title >Contacts {{logNumber}} {{siteName}}</mat-card-title>  
+    <mat-card-content>    
+        <div class="contacts">
+            <div class="loading-indicator" *ngIf="contactDataSource.contactLoading$ | async">
+                <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+            </div>
+            <div class="form-group row fielddefaultbackground">  
+                <div class="col-sm-10 col-md-10 col-lg-10"></div>
+                <div *ngIf="totalRows > 0">
+                    <div class="col-sm-2 col-md-2 col-lg-2"> 
+                        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                    </div>
+                </div>
+            </div>
+            <!-- responsive-table  -->
+            <div class="responsive-table">
+                <mat-table class="child-table" cdkScrollable [dataSource]="contactDataSource">
+                    <ng-container matColumnDef="affilTypeDesc">
+                        <mat-header-cell *matHeaderCellDef >ContactType</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet?.affilTypeDesc}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="startDt">
+                        <mat-header-cell *matHeaderCellDef >Start Date</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.startDt | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="endDt">
+                        <mat-header-cell *matHeaderCellDef >End Date</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.endDt | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="organization">
+                        <mat-header-cell *matHeaderCellDef >Organization</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet?.organization}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="subOrganization">
+                        <mat-header-cell *matHeaderCellDef >Sub-Organization</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.subOrganization}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="jobtitle">
+                        <mat-header-cell *matHeaderCellDef >Title</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.jobTitle}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="firstName">
+                        <mat-header-cell *matHeaderCellDef >First Name</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.firstName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="lastName">
+                        <mat-header-cell *matHeaderCellDef >Last Name</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.lastName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="zp4Checked">
+                        <mat-header-cell *matHeaderCellDef >Zip4Checked</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.zp4Checked > 0? 'Yes' : 'No'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="affilComments">
+                        <mat-header-cell *matHeaderCellDef >Comments</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.affilComments}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="lastUpdBy">
+                        <mat-header-cell *matHeaderCellDef >Updated By</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet?.lastUpdBy}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="lastUpdDttm">
+                        <mat-header-cell *matHeaderCellDef >Updated Date</mat-header-cell>
+                        <mat-cell *matCellDef="let contactAffilGet">{{contactAffilGet.lastUpdDttm | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="affilId" >
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                            <mat-cell *matCellDef="let contactAffilGet" > 
+                                <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="edit(contactAffilGet)" >{{getLabel(contactAffilGet)}}</button>
+                            </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+                </mat-table>
+            </div>
+        </div>          
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-actions>
+        <div class="form-row full-width">
+            <div class="col-md-2 " *ngIf="showAdd">
+                <button mat-raised-button color="primary" type="button" class="btn btn-default btn-md btn-block"  (click)="add()"  >Add New Contact</button>
+            </div>
+            <div class="col-md-1 ">
+                <button mat-raised-button color="primary" type="button" class="btn btn-default btn-md btn-block" (click)="refresh()" >Refresh</button>
+            </div>
+        </div>
+    </mat-card-actions> 
+</mat-card>

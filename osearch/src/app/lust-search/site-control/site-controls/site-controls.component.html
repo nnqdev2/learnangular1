@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-title > Site Control {{logNumber}} {{siteName}}</mat-card-title>  
+    <mat-card-content>    
+        <div class="siteControls">
+            <div class="loading-indicator" *ngIf="siteControlDataSource.siteControlsLoading$ | async">
+                <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+            </div>
+            <div class="form-group row fielddefaultbackground">  
+                <div class="col-sm-10 col-md-10 col-lg-10"></div>
+                <div *ngIf="totalRows > 0">
+                    <div class="col-sm-2 col-md-2 col-lg-2"> 
+                        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                    </div>
+                </div>
+            </div>
+            <mat-table class="child-table"  cdkScrollable [dataSource]="siteControlDataSource">
+                <ng-container matColumnDef="siteControlId">
+                    <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+                    <div  *ngIf="showAdd"> 
+                        <mat-cell *matCellDef="let siteControl"> 
+                            <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(siteControl) ">Edit</button>
+                            <button mat-raised-button color="primary" class="btn btn-space-table btn-success btn-md" (click)="onDelete(siteControl) ">Delete</button> 
+                        </mat-cell>
+                    </div>
+                    <div  *ngIf="!showAdd"> 
+                        <mat-cell *matCellDef="let siteControl"> 
+                            <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(siteControl) ">View</button>
+                        </mat-cell>
+                    </div>
+                </ng-container>  
+                <ng-container matColumnDef="controlDescription">
+                    <mat-header-cell *matHeaderCellDef >Control Description</mat-header-cell>
+                    <mat-cell *matCellDef="let siteControl">{{siteControl.controlDescription}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="frequencyOfReview">
+                    <mat-header-cell *matHeaderCellDef >Frequency Of Review</mat-header-cell>
+                    <mat-cell *matCellDef="let siteControl">{{siteControl.frequencyOfReview}} Month(s)</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="lastReviewDate">
+                    <mat-header-cell *matHeaderCellDef >Last Reviewed Date</mat-header-cell>
+                    <mat-cell *matCellDef="let siteControl">{{siteControl.lastReviewDate | date:'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="controlEndDate">
+                    <mat-header-cell *matHeaderCellDef >End Date</mat-header-cell>
+                    <mat-cell *matCellDef="let siteControl">{{siteControl.controlEndDate | date:'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+            </mat-table>
+        </div>          
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-actions>
+        <div class="form-row full-width">
+            <div class="col-md-2 " *ngIf="showAdd">
+                <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"  (click)="add()"  >Add New Site Control</button>
+            </div>
+            <div class="col-md-1 ">
+                <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="refresh()" >Refresh</button>
+            </div>
+        </div>
+    </mat-card-actions> 
+</mat-card>

@@ -1,0 +1,162 @@
+<div class="loading-indicator" ng-container *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+
+<ng-template #showForm>
+  <div class="container-fluid">
+      <!-- Form assessmentForm begins -->
+      <form [formGroup]="siteControlForm" class="form" role="form" autocomplete="off" method="POST"  (ngSubmit)="submitSiteControl()">
+           <!-- <mat-card> -->
+              <mat-card-title > Site Control {{logNumber}} {{siteName}}</mat-card-title>
+                  <mat-card-content>
+                      <mat-card class="mat-card-padding-reduced">
+                        <div class="form-row full-width fielddefaultbackground">
+                            <div class="form-group required col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="controlBeginDate">Control Begin Date</mat-label>
+                                    <input matInput [max]="maxDate" [matDatepicker]="controlBeginDate" formControlName="controlBeginDate">
+                                        <mat-datepicker-toggle matSuffix [for]="controlBeginDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #controlBeginDate [startAt]="maxDate" ></mat-datepicker>
+                                </mat-form-field>
+                                <app-show-errors [control]="siteControlForm.controls.controlBeginDate" [submitClicked]="submitClicked"></app-show-errors>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="controlEndDate">Control End Date</mat-label>
+                                    <input matInput [max]="maxDate" [matDatepicker]="controlEndDate" formControlName="controlEndDate">
+                                        <mat-datepicker-toggle matSuffix [for]="controlEndDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #controlEndDate [startAt]="maxDate" ></mat-datepicker>
+                                </mat-form-field>
+                                <app-show-errors [control]="siteControlForm.controls.controlEndDate" [submitClicked]="submitClicked"></app-show-errors>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="lastReviewDate">Last Reviewed Date</mat-label>
+                                    <input matInput [max]="maxDate" [matDatepicker]="lastReviewDate" formControlName="lastReviewDate">
+                                        <mat-datepicker-toggle matSuffix [for]="lastReviewDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #lastReviewDate [startAt]="maxDate" ></mat-datepicker>
+                                </mat-form-field>
+                            <app-show-errors [control]="siteControlForm.controls.lastReviewDate" [submitClicked]="submitClicked"></app-show-errors>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="frequencyOfReview">Review Frequency Month(s)</mat-label>
+                                    <input matInput placeholder="Frequency of Review" formControlName="frequencyOfReview">
+                                </mat-form-field>
+                                <app-show-errors [control]="siteControlForm.controls.frequencyOfReview" [submitClicked]="submitClicked"></app-show-errors>                            
+                            </div>
+
+                        </div>  
+                      </mat-card>
+                  </mat-card-content>
+
+             
+
+
+              <mat-card-content>
+                <mat-card class="mat-card-padding-reduced">
+                  <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="typeId">Control Type</mat-label>
+                                <mat-select formControlName="typeId" (click)="setShowEngineeringInstitutional();">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option *ngFor="let siteControlType of siteControlTypes" 
+                                            [value]="siteControlType?.id">
+                                            {{siteControlType?.descript}}
+                                    </mat-option>
+                                </mat-select>    
+                            </mat-form-field>
+                            <app-show-errors [control]="siteControlForm.controls.typeId" [submitClicked]="submitClicked"></app-show-errors>                            
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                        <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="lastReviewBy">Last Reviewed By</mat-label>
+                            <mat-select formControlName="lastReviewBy">
+                                <mat-option value=""></mat-option>
+                                <mat-option *ngFor="let uName of pmActives" [value]="uName?.pmLogin" >{{uName?.pmName}}
+                                </mat-option>
+                            </mat-select>    
+                        </mat-form-field>
+                        <app-show-errors [control]="siteControlForm.controls.lastReviewBy" [submitClicked]="submitClicked"></app-show-errors>                            
+                    </div>
+
+                    <div class="form-group required col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="controlId">Control</mat-label>
+                            <mat-select formControlName="controlId">
+                                <mat-option *ngFor="let controlId of theRealControlTypes" 
+                                        [value]="controlId?.id" >
+                                        {{controlId?.descript}}
+                                </mat-option>
+                            </mat-select>    
+                        </mat-form-field>
+                        <app-show-errors [control]="siteControlForm.controls.controlId" [submitClicked]="submitClicked"></app-show-errors>                            
+                    </div> 
+                  </div>
+                </mat-card>
+              </mat-card-content>
+
+
+                 
+              <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="mat-expansion-panel-header">
+                            <mat-panel-title class="mat-panel-title-text-align">
+                                Comments
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Site Control Comments
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-card-content>
+                                <div class="form-row full-width mat-card-subtitle-background fielddefaultbackground">
+                                    <mat-label class="control-label" for="controlComment">Comment</mat-label>
+                                    <mat-form-field class="comment-field-format">
+                                        <textarea matInput matTextareaAutosize placeholder="Enter comment here" formControlName="controlComment" matAutosizeMinRows=3 matAutosizeMaxRows=3></textarea>
+                                    </mat-form-field>  
+                                </div>  
+                            </mat-card-content>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+
+
+
+
+                <!-- show errors  -->
+              <!-- <div id="errorsPage"> -->
+            <div>
+              <ng-container *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></ng-container>
+              <ng-template #showAllErrorsMessages>
+                <ngb-alert ng-container *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                    <div class="form-group row">
+                        <app-show-all-messages [messages]="findInvalidControls()"  [submitClicked]="submitClicked"></app-show-all-messages>
+                    </div>
+                </ngb-alert>
+              </ng-template>
+            </div>
+               <!-- /show errors  -->
+
+
+              <mat-card>
+                  <mat-card-actions>
+                      <div class="form-group row">
+                          <div class="col-md-3" *ngIf="!viewOnly">
+                              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                          </div>
+                          <!-- <div class="col-md-3 ">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="save()" >Clear</button>
+                          </div> -->
+                          <div class="col-md-3">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="cancel()" >{{returnToList}}</button>
+                          </div>
+                      </div>
+                   </mat-card-actions>
+              </mat-card>  
+            
+
+        </form>  
+    </div>
+</ng-template>

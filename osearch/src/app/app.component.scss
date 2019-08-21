@@ -1,0 +1,89 @@
+
+  @media print {
+
+    @page { margin: 0;}
+    body { margin: 1.6cm;}
+    
+    .noprint {
+      display:none;
+    }
+
+  }
+
+  // .mat-tab-label-container{
+  //   background-color: green;
+  // }
+
+//   .mat-tab-label-active{
+//     color: #CD412B !important;
+//     background-color: burlywood;
+// } 
+
+.sidenav-padding {
+  margin-left: 10px;
+}
+
+.sidenav-menu-padding {
+  width: 178px;
+}
+
+.sidenav-open-style {
+  font-size:30px;
+  cursor:pointer;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 250;
+  left: 0;
+  background-color: rgb(69, 91, 27);
+  background-image: linear-gradient(to right, rgba(251, 251, 251, 0), rgb(51, 126, 76));
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  touch-action: auto;
+}
+
+.sidenav a {
+  padding: 8px 8px 0px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;
+  transition: 0.99s;
+  
+  
+}
+
+.sidenav a:hover {
+  color: black;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sidenav[_ngcontent-c0] a[_ngcontent-c0]:hover {
+  cursor: pointer;
+}
+
+
+.no-touch .scrollable.hover {
+  overflow-y: hidden;
+}
+.no-touch .scrollable.hover:hover {
+  overflow-y: auto;
+  overflow: visible;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

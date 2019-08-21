@@ -1,0 +1,60 @@
+<mat-card>  
+    <mat-card-title >    
+      Inspections {{lognumber}} {{siteName}}
+    </mat-card-title> 
+    <mat-card-content>  
+      <div class="container-fluid">
+          <div class="loading-indicator" *ngIf="inspectionDataSource.inspectLoading$ | async">
+              <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+          </div>
+          <div class="form-group row fielddefaultbackground">  
+            <div class="col-sm-10 col-md-10 col-lg-10"></div>
+            <div *ngIf="totalRows > 0">
+                <div class="col-sm-2 col-md-2 col-lg-2"> 
+                    <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                </div>
+            </div>
+          </div>
+          <mat-table class="child-table mat-elevation-z8 "  cdkScrollable [dataSource]="inspectionDataSource">
+              <ng-container matColumnDef="inspectionId">
+                  <mat-header-cell *matHeaderCellDef >Inspector</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet?.inspectionId}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="inspectionDate">
+                  <mat-header-cell *matHeaderCellDef >Inspection Date</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.inspectionDate | date:'MM/dd/yyyy'}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="inspector">
+                  <mat-header-cell *matHeaderCellDef >Inspector</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet?.inspector}}</mat-cell>
+              </ng-container>             
+              <ng-container matColumnDef="inspectionType">
+                  <mat-header-cell *matHeaderCellDef >Inspection Type</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.inspectionTypes}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="comment">
+                  <mat-header-cell *matHeaderCellDef >Comment</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.comment}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="lastChangeBy">
+                  <mat-header-cell *matHeaderCellDef >Last Changed By</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.lastChangeBy}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="lastChangeDate">
+                  <mat-header-cell *matHeaderCellDef >Last Changed Date</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.lastChangeDate | date:'MM/dd/yyyy'}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="lustid">
+                  <mat-header-cell *matHeaderCellDef >LustId</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.lustId}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="lognumber">
+                  <mat-header-cell *matHeaderCellDef >Lognumer</mat-header-cell>
+                  <mat-cell *matCellDef="let inspectionGet">{{inspectionGet.logNumber}}</mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+          </mat-table>
+      </div>
+    </mat-card-content>
+</mat-card>

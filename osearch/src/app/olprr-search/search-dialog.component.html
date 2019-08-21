@@ -1,0 +1,12 @@
+<mat-dialog-content>
+    <div *ngIf="data.searchType==='LUST'; then showLustSearch; else showUstSearch"></div>
+    <ng-template #showLustSearch> 
+        <app-lust-search-filter></app-lust-search-filter>
+    </ng-template>
+    <ng-template #showUstSearch> 
+        <app-ust-search-filter></app-ust-search-filter>
+    </ng-template>
+</mat-dialog-content>
+<div mat-dialog-actions>  
+<button mat-raised-button color="primary" type="button" class="btn btn-sucess btn-md" [mat-dialog-close]="true">Close </button>
+</div>

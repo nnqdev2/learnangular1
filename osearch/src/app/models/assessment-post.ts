@@ -1,0 +1,62 @@
+export class AssessmentPost {
+    lustId: number;
+    assessmentId: number;
+    discoverDate?: Date;
+    cleanupNecessaryInd: boolean;
+    migrationInd: boolean;
+    confirmationId: number;
+    discoveryId: string;
+    releaseCauseId: string;
+    releaseSourceId: Date;
+    slMediaInd: boolean;
+    swMediaInd: boolean;
+    gwMediaInd: boolean;
+    wMediaInd: boolean;
+    dwMediaInd: boolean;
+    fvMediaInd: boolean;
+    fpMediaInd: boolean;
+    unMediaInd: boolean;
+    ugContamInd: boolean;
+    lgContamInd: boolean;
+    mgContamInd: boolean;
+    dsContamInd: boolean;
+    woContamInd: boolean;
+    lbContamInd: boolean;
+    svContamInd: boolean;
+    opContamInd: boolean;
+    chContamInd: boolean;
+    unContamInd: boolean;
+    mtbeContamInd: boolean;
+    hoContamInd: boolean;
+    fpRemovedInd: boolean;
+    vpRemovedInd: boolean;
+    delineateSL: boolean;
+    delineateGW: boolean;
+    slDelineated: boolean;
+    gwDelineated: boolean;
+    gwCompMonitoring: boolean;
+    capRequested: boolean;
+    capSubmitted: boolean;
+    capApproved: boolean;
+    currentSiteScore: number;
+    amntReleaseComment: string;
+    contamComment: string;
+    lastChangeBy: string;
+
+    // Site Score Data
+    siteScoreIdIn: number;
+    DwReplmeasr: number;
+    DwImpmeasr: number;
+    DwImpLiklymeasr: number;
+    VprLvlmeasr: number;
+    PopExposdmeasr: number;
+    EnvTypmeasr: number;
+    EnvImpLilelymeasr: number;
+    NonDwSupTypmeasr: number;
+    UtImpmeasr: number;
+    RainfallAnnualmeasr: number;
+    SoilPermmeasr: number;
+    AqfrDepthmeasr: number;
+    SwDistmeasr: number;
+
+  }

@@ -1,0 +1,620 @@
+<div class="loading-indicator" ng-container *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+
+<ng-template #showForm>
+  <div class="container-fluid">
+      <!-- Form assessmentForm begins -->
+      <form [formGroup]="assessmentForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="submitAssessment()">
+           <mat-card class="remove-padding">
+              <mat-card-title class="mat-card-headertitle-background"> Assessment {{logNumber}} {{siteName}}</mat-card-title>
+                  <mat-card-content>
+                      <mat-card class="remove-padding">
+                      <mat-card-title class="mat-card-subtitle-background"> Assessment </mat-card-title>
+                        <mat-card-content>
+                          <div class="form-row full-width fielddefaultbackground">
+                              <div class="form-group required col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                                  <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="discoveryId">Discovery</mat-label>
+                                        <mat-select class="dropdown-select" formControlName="discoveryId" >
+                                            <mat-option value=""></mat-option>
+                                            <mat-option *ngFor="let assessmentDiscoveryType of assessmentDiscoveryTypes"
+                                            [value]="assessmentDiscoveryType?.id" >
+                                            {{assessmentDiscoveryType?.descript}}
+                                            </mat-option>
+                                        </mat-select>
+                                  </mat-form-field>
+                                  <app-show-errors [control]="assessmentForm.controls.discoveryId" [submitClicked]="submitClicked"></app-show-errors>
+                              </div>
+
+                              <div class="form-group required col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                                  <mat-form-field class="fieldshover">
+                                      <mat-label class="control-label" for="releaseCauseId">Release Cause Type</mat-label>
+                                      <mat-select class="dropdown-select" formControlName="releaseCauseId">
+                                        <mat-option value=""></mat-option>
+                                        <mat-option *ngFor="let assessmentReleaseCauseType of assessmentReleaseCauseTypes"
+                                          [value]="assessmentReleaseCauseType?.id" >
+                                          {{assessmentReleaseCauseType?.descript}}
+                                        </mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                  <app-show-errors [control]="assessmentForm.controls.releaseCauseId"  [submitClicked]="submitClicked"></app-show-errors>
+                              </div>
+
+                              <div class="form-group required col-sm-6 col-md-6 col-lg-6  col-xl-3">
+                                  <mat-form-field class="fieldshover">
+                                      <mat-label class="control-label" for="releaseSourceId">Release Source Type</mat-label>
+                                      <mat-select class="dropdown-select" formControlName="releaseSourceId" >
+                                          <mat-option value=""></mat-option>
+                                          <mat-option *ngFor="let assessmentReleaseSourceType of assessmentReleaseSourceTypes"
+                                                  [value]="assessmentReleaseSourceType?.id">
+                                                  {{assessmentReleaseSourceType?.descript}}
+                                          </mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                  <app-show-errors [control]="assessmentForm.controls.releaseSourceId"  [submitClicked]="submitClicked"></app-show-errors>
+                              </div>
+
+                              <div class="form-group required col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                                  <mat-form-field class="fieldshover">
+                                      <mat-label class="control-label" for="confirmationId">Confirmation</mat-label>
+                                      <mat-select class="dropdown-select" formControlName="confirmationId" >
+                                          <mat-option value=""></mat-option>
+                                          <mat-option *ngFor="let assessmentConfirmationType of assessmentConfirmationTypes"
+                                                  [value]="assessmentConfirmationType?.id">
+                                                  {{assessmentConfirmationType?.descript}}
+                                          </mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                  <app-show-errors [control]="assessmentForm.controls.confirmationId"  [submitClicked]="submitClicked"></app-show-errors>
+                              </div>
+                         </div>
+                        </mat-card-content>
+                       </mat-card>
+                    </mat-card-content>
+
+                    <mat-card-title class="mat-card-headertitle-background"> Media and Contaminants </mat-card-title>
+                    <mat-card-content>
+
+                    <mat-card class="remove-padding">
+                            <mat-card-title class="mat-card-subtitle-background" > Media </mat-card-title>
+                        <div class="form-row full-width fielddefaultbackground">
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="dwMediaInd">Drinking Water </mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.dwMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                        <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="gwMediaInd">Ground Water </mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.gwMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                        <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="swMediaInd">Surface Water </mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.swMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                        <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="slMediaInd">Soil</mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.slMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                        <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="fvMediaInd">Free Vapor </mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.fvMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                        <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <label class="form-check-label fieldshover">
+                                <mat-checkbox color="primary" formControlName="fpMediaInd">Free Product </mat-checkbox>
+                            </label>
+                            <!-- <app-show-errors [control]="assessmentForm.controls.fpMediaInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                        </div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="remove-padding">
+                <mat-card-title class="mat-card-subtitle-background"> Contaminants </mat-card-title>
+                <div class="form-row full-width fielddefaultbackground">
+                          <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                              <label class="form-check-label fieldshover">
+                                  <mat-checkbox color="primary" formControlName="ugContamInd">Unleaded Gas</mat-checkbox>
+                              </label>
+                              <!-- <app-show-errors [control]="assessmentForm.controls.ugContamInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                          </div>
+                          <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                              <label class="form-check-label fieldshover">
+                                  <mat-checkbox color="primary" formControlName="hoContamInd">Heating Oil</mat-checkbox>
+                              </label>
+                              <!-- <app-show-errors [control]="assessmentForm.controls.hoContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                          </div>
+                          <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                              <label class="form-check-label fieldshover">
+                                  <mat-checkbox color="primary" formControlName="lbContamInd">Lubricant</mat-checkbox>
+                              </label>
+                              <!-- <app-show-errors [control]="assessmentForm.controls.lbContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                          </div>
+                          <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                              <label class="form-check-label fieldshover">
+                                  <mat-checkbox color="primary" formControlName="opContamInd">Other Pet Dist</mat-checkbox>
+                              </label>
+                              <!-- <app-show-errors [control]="assessmentForm.controls.opContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                          </div>
+                          <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="lgContamInd">Leaded Gas</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.lgContamInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="woContamInd">Waste Oil</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.woContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-check col-md-10">
+                            <div class="form-row full-width">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row full-width fielddefaultbackground">
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                    <label class="form-check-label fieldshover">
+                                        <mat-checkbox color="primary" formControlName="svContamInd">Solvent</mat-checkbox>
+                                    </label>
+                                    <!-- <app-show-errors [control]="assessmentForm.controls.svContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                                </div>
+                                <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                    <label class="form-check-label fieldshover">
+                                        <mat-checkbox color="primary" formControlName="mtbeContamInd">MTBE</mat-checkbox>
+                                    </label>
+                                    <!-- <app-show-errors [control]="assessmentForm.controls.mtbeContamInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                                </div>
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="mgContamInd">Misc Gas</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.mgContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="dsContamInd">Diesel</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.dsContamInd"  [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="chContamInd">Chemical</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.chContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+                            <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                                <label class="form-check-label fieldshover">
+                                    <mat-checkbox color="primary" formControlName="unContamInd">Unknown</mat-checkbox>
+                                </label>
+                                <!-- <app-show-errors [control]="assessmentForm.controls.unContamInd" [submitClicked]="submitClicked"></app-show-errors> -->
+                            </div>
+
+                    </div>
+                </mat-card>
+
+                    </mat-card-content>
+
+
+
+              <mat-card-title class="mat-card-subtitle-background"> Activities </mat-card-title>
+              <mat-card-content>
+                <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover check-box">
+                            <mat-checkbox color="primary" formControlName="cleanupNecessaryInd" (change)="onCleanupChanged($event, item)">Cleanup Necessary </mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.cleanupNecessaryInd" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="delineateGW">Delineate GW</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.delineateGW" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="gwDelineated">GW Delineated</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.gwDelineated" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="fpRemovedInd">Free Product Removed</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.fpRemovedInd" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="capRequested">CAP Requested</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.capRequested" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="capApproved">CAP Approved</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.capApproved" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                </div>
+                <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="migrationInd">Off-Site Migration</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.migrationInd" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="delineateSL">Delineate SL</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.delineateSL" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="slDelineated">SL Delineated</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.slDelineated" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="vpRemovedInd">Free Vapor Removed</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.vpRemovedInd" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="capSubmitted">CAP Submitted</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.capSubmitted" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-check col-sx-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                        <label class="form-check-label fieldshover">
+                            <mat-checkbox color="primary" formControlName="gwCompMonitoring">Compliance Monitoring</mat-checkbox>
+                        </label>
+                        <app-show-errors [control]="assessmentForm.controls.gwCompMonitoring" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                </div>
+
+                <div class="form-row full-width fielddefaultbackground">
+                        <mat-label class="control-label" for="siteScoreLastChangedBy">Assessment Last Changed By: {{ assessmentLastChangedBy }}</mat-label>
+                </div>
+              </mat-card-content>
+
+              <mat-card-title class="mat-card-subtitle-background"> Scoring </mat-card-title>
+              <mat-card class="remove-padding">
+                <mat-card-content>
+                    <div class="form-row full-width fielddefaultbackground">
+                        <div class="form-group required col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="dwReplMeasure">Drinking Water Replacement</mat-label>
+                                <mat-select class="dropdown-select" formControlName="dwReplMeasure">
+                                    <mat-option *ngFor="let dwReplacementType of dwReplacementTypes"
+                                        [value]="dwReplacementType?.id">
+                                        {{dwReplacementType?.descript}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.dwReplMeasure"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="nonDwSupTypMeasure">Non-Drinking Water Replacement</mat-label>
+                                <mat-select class="dropdown-select" formControlName="nonDwSupTypMeasure">
+                                    <mat-option *ngFor="let nonDwReplacementType of nonDwReplacementTypes"
+                                        [value]="nonDwReplacementType?.id">
+                                        {{nonDwReplacementType?.descript}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.nonDwSupTypMeasure"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="dwImpMeasure">Drinking Water Impact</mat-label>
+                                <mat-select class="dropdown-select" formControlName="dwImpMeasure">
+                                    <mat-option *ngFor="let dwImpactType of dwImpactTypes"
+                                        [value]="dwImpactType?.id">
+                                        {{dwImpactType?.descript}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.dwImpMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="utImpMeasure">Utility Impact</mat-label>
+                                <mat-select class="dropdown-select" formControlName="utImpMeasure">
+                                    <mat-option *ngFor="let utilityImpactType of utilityImpactTypes"
+                                        [value]="utilityImpactType?.id">
+                                        {{utilityImpactType?.descript}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.utImpMeasure"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div>
+                    </div>
+
+                <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                      <mat-form-field class="fieldshover">
+                          <mat-label class="control-label" for="dwImpLiklyMeasure">Drinking Water Impact Likely</mat-label>
+                          <mat-select class="dropdown-select" formControlName="dwImpLiklyMeasure">
+                            <mat-option *ngFor="let dwImpactLikelyType of dwImpactLikelyTypes"
+                              [value]="dwImpactLikelyType?.id">
+                              {{dwImpactLikelyType?.descript}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <app-show-errors [control]="assessmentForm.controls.dwImpLiklyMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                        <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="rainfallAnnualMeasure">Rainfall Annual Type</mat-label>
+                            <mat-select class="dropdown-select" formControlName="rainfallAnnualMeasure">
+                              <mat-option *ngFor="let rainFallAnnualType of rainFallAnnualTypes"
+                                [value]="rainFallAnnualType?.id">
+                                {{rainFallAnnualType?.descript}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <app-show-errors [control]="assessmentForm.controls.rainfallAnnualMeasure"  [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="vprLvlMeasure">Vapor Level</mat-label>
+                                <mat-select class="dropdown-select" formControlName="vprLvlMeasure">
+                                  <mat-option *ngFor="let vaporLevelType of vaporLevelTypes"
+                                    [value]="vaporLevelType?.id">
+                                    {{vaporLevelType?.descript}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.vprLvlMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                          </div>
+                          <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <mat-form-field class="fieldshover">
+                                  <mat-label class="control-label" for="soilPermMeasure">Soil Permability</mat-label>
+                                  <mat-select class="dropdown-select" formControlName="soilPermMeasure">
+                                    <mat-option *ngFor="let soilPermiabilityType of soilPermiabilityTypes"
+                                      [value]="soilPermiabilityType?.id">
+                                      {{soilPermiabilityType?.descript}}
+                                    </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                              <app-show-errors [control]="assessmentForm.controls.soilPermMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                          </div>
+                </div>
+                <div class="form-row full-width fielddefaultbackground">
+
+                </div>
+
+                <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                      <mat-form-field class="fieldshover">
+                          <mat-label class="control-label" for="popExposdMeasure">Population Exposed</mat-label>
+                          <mat-select class="dropdown-select" formControlName="popExposdMeasure">
+                            <mat-option *ngFor="let populationExposedType of populationExposedTypes"
+                              [value]="populationExposedType?.id">
+                              {{populationExposedType?.descript}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <app-show-errors [control]="assessmentForm.controls.popExposdMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                        <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="aqfrDepthMeasure">Aquifer Depth</mat-label>
+                            <mat-select class="dropdown-select" formControlName="aqfrDepthMeasure">
+                              <mat-option *ngFor="let aquiferDepthType of aquiferDepthTypes"
+                                [value]="aquiferDepthType?.id">
+                                {{aquiferDepthType?.descript}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <app-show-errors [control]="assessmentForm.controls.aqfrDepthMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="envTypMeasure">Environment Type</mat-label>
+                                <mat-select class="dropdown-select" formControlName="envTypMeasure">
+                                  <mat-option *ngFor="let environmentType of environmentTypes"
+                                    [value]="environmentType?.id">
+                                    {{environmentType?.descript}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="assessmentForm.controls.envTypMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                          </div>
+                          <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <mat-form-field class="fieldshover">
+                                  <mat-label class="control-label" for="swDistMeasure">Scoring Surface Water Distance</mat-label>
+                                  <mat-select class="dropdown-select" formControlName="swDistMeasure">
+                                    <mat-option *ngFor="let swDistanceType of swDistanceTypes"
+                                      [value]="swDistanceType?.id">
+                                      {{swDistanceType?.descript}}
+                                    </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                              <app-show-errors [control]="assessmentForm.controls.swDistMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                          </div>
+
+                </div>
+
+                <div class="form-row full-width">
+                </div>
+
+                <div class="form-row full-width fielddefaultbackground">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                      <mat-form-field class="fieldshover">
+                          <mat-label class="control-label" for="envImpLilelyMeasure">Environment Impact Likely Type</mat-label>
+                          <mat-select class="dropdown-select" formControlName="envImpLilelyMeasure">
+                            <mat-option *ngFor="let environmentImpactLikelyType of environmentImpactLikelyTypes"
+                              [value]="environmentImpactLikelyType?.id">
+                              {{environmentImpactLikelyType?.descript}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <app-show-errors [control]="assessmentForm.controls.envImpLilelyMeasure" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <!-- <mat-form-field >
+                            <mat-label class="control-label" for="scoreLastUpdated">Score Last Updated {{assessment.ScoreLastChangedBy}} {{assessment.ScoreLastChangedDate}}</mat-label>
+                        </mat-form-field> -->
+                    </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+              <mat-card-title class="site-score-title"> Site Score </mat-card-title>
+              <mat-card-content>
+
+              </mat-card-content>
+
+
+
+                <div class="form-row full-width">
+                    <div class="col-4 align-center">
+                            Lowest
+                    </div>
+                    <div class="col-4 align-center">
+                            Average
+                    </div>
+                    <div class="col-4 align-center">
+                            High
+                    </div>
+                </div>
+
+
+                <div class="form-row full-width">
+                    <div class="col-6 align-center">
+                            <mat-label class="control-label" for="avgScore">Average Score {{avgScore}}</mat-label>
+                    </div>
+                    <div class="col-6 align-center">
+                            <mat-label class="control-label" for="highScore">High Score {{highScore}}</mat-label>
+                    </div>
+
+                </div>
+
+                <div class="form-row full-width fielddefaultbackground align-center">
+                    <div class="site-score-graph-format">
+
+                        <table style="width:100%;">
+                            <tr>
+
+                                <td class="align-center site-current-score-format">
+                                {{currentScore}}
+                                    
+                                </td>
+
+                                <td id="LOWX" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="AVERAGEX" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="HIGH20X" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="HIGH40X" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="HIGH60X" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="HIGH80X" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="HIGH100X" class="green-background-color site-score-style">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+              <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="mat-expansion-panel-header">
+                            <mat-panel-title class="mat-panel-title-text-align">
+                                Comments
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Amount Released / Contaminants
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <!-- Site Comments-->
+                        <mat-card-content>
+                            <div class="form-row full-width mat-card-subtitle-background fielddefaultbackground">
+                                <mat-label class="control-label" for="amntReleaseComment">Amount Released</mat-label>
+                                <mat-form-field class="comment-field-format">
+                                    <textarea matInput matTextareaAutoSize placeholder="Enter comment here" formControlName="amntReleaseComment" matAutosizeMinRos=1 matAutosizeMaxRows=10></textarea>
+                                </mat-form-field>
+                            </div>
+                        </mat-card-content>
+                        <!-- See Also Comments-->
+                        <mat-card-content>
+                            <div class="form-row full-width example-container mat-card-subtitle-background">
+                                <mat-label class="control-label" for="contamComment">Contaminants</mat-label>
+                                <mat-form-field class="comment-field-format">
+                                    <textarea matInput matTextareaAutoSize placeholder="Enter comment here" formControlName="contamComment" matAutosizeMinRos=1 matAutosizeMaxRows=10></textarea>
+                                </mat-form-field>
+                            </div>
+                        </mat-card-content>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+
+
+
+
+                <!-- show errors  -->
+              <ng-container *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></ng-container>
+              <ng-template #showAllErrorsMessages>
+                <ngb-alert ng-container *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                    <div class="form-group row">
+                        <app-show-all-messages [messages]="findInvalidControls()"  [submitClicked]="submitClicked"></app-show-all-messages>
+                    </div>
+                </ngb-alert>
+              </ng-template>
+               <!-- /show errors  -->
+
+
+              <mat-card class="remove-padding">
+                  <mat-card-actions>
+                      <div class="form-group row">
+                          <div class="col-md-3" *ngIf="!viewOnly">
+                              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                          </div>
+                          <!-- <div class="col-md-3 ">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="save()" >Clear</button>
+                          </div>
+                          <div class="col-md-3">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="close()">Help</button>
+                          </div> -->
+                      </div>
+                   </mat-card-actions>
+              </mat-card>
+             </mat-card>
+
+        </form>
+    </div>
+</ng-template>

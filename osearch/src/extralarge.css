@@ -1,0 +1,124 @@
+
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*                                                               ExtraLarge                                                                               */            
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+
+
+@media screen and (min-width: 1200px){
+    .cellGraph {
+        float: left;
+        width: 85px;
+        height: 20px;
+        margin: 0px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+    .cellGraph, .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8 {
+        background: grey;
+    }
+    
+    .mat-panel-description-sizer {
+        font-size: 16px; 
+        padding: 0px; 
+        text-align: left;
+    } 
+    
+}
+
+@media screen and (max-width: 1350){
+    .mat-tab-link {
+        font-size: 20px;
+    }
+    
+     mat-checkbox {
+        font-size: 12px;
+    } 
+
+    .check-box {
+        font-size: 12px;
+    }
+
+    .dropdown-select {
+        font-size: 10px;
+    }
+
+
+    
+/* Bar Graph Formatting for Assessment Screen */
+
+    .bar-graph-green {
+        background: green;
+    }
+
+    .bar-graph-red {
+        background: red;
+    }
+
+    .bar-graph-grey {
+        background-color: lightgrey !important;
+        text-align: center !important;
+    }
+
+    .bar-graph-text-align {
+        text-align: center;
+    }
+
+   
+    .cellGraph {
+        float: left;
+        width: 95px;
+        height: 20px;
+        margin: 0px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+    .cellGraph, .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8 {
+        background: grey;
+    }
+    /* Bar Graph Formatting for Assessment Screen */
+
+
+        
+    .lat-long-views {
+        /* Incident Assessment Lat/Long data row */
+        width: 165px;
+        margin-top: 40px;
+    }
+
+   
+    .lit-entry {
+        /* LIT Entry Configuration */
+        margin-bottom: -20px;
+        padding: 0px;
+        background-color: white;
+        font-size: 12px;
+        
+    }
+
+        
+    .mat-panel-description-sizer {
+        font-size: 20px; 
+        padding: 0px; 
+        text-align: left;
+    } 
+            
+    .contact-organization-font-size {
+        font-size: 14px;
+    }
+
+
+    
+    .mat-card-padding-reduced {
+        padding: 5px;
+    }
+
+    
+    .hol_title_format {
+        font-size: 24px;
+    }
+
+}

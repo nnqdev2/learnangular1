@@ -1,0 +1,543 @@
+/* You can add global styles to this file, and also import other style files 
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+*/
+
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*                                                               Default                                                                               */            
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************/
+
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+[_nghost-c5] {
+    display: inline-block !important;
+    width: 100%;
+}
+
+
+.full-width {
+    width: 100%;
+    }
+
+
+/* .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label:not(.mat-empty):not(.mat-form-field-empty) { */
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label:not(:focus) {
+    color: black !important;
+    font-weight: bold;
+}
+
+.mat-label {
+    color: black !important;
+    font-weight: bold;
+}
+
+.mat-checkbox-disabled .mat-checkbox-label {
+    color: black;
+}
+
+.mat-checkbox-enabled-color {
+    color: blue;
+}
+
+
+button {
+    border-radius: 10px !important;
+  }
+  
+.text-left {
+    text-align: left !important
+}
+
+.mat-tab-link-active,
+.mat-tab-label-active {
+    background-color: #5EADB0;
+    color: rgb(223, 22, 102);
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+
+.mat-tab-label,
+ .mat-tab-link {
+    line-height: 30px !important;
+    height: 42px !important;
+    min-width: 100px !important;
+    /* border: 1px solid #7e7e7e; */
+    border: 1px solid black;
+    font-weight: bold;
+    background-color:white;
+    color: black;
+    font-size: 24px;
+    /* background-color: rgb(245, 13, 90); */
+ 
+}
+
+.tabContentContainer {
+    border: 1px solid #aaaaaa;
+    /* background: #ffffff 50% 50% repeat-x; */
+}
+
+.mat-form-field {
+    height: 40px;
+    background-color:white;
+    padding: 0em 0 0 1em;
+    width: 100%;
+}
+
+
+
+/* Absolute Center Spinner */
+.loading-indicator {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  /* Transparent Overlay */
+  .loading-indicator:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0,0,0,0.3); */
+    background-color:white;
+    padding: 0em 0 0 1em;
+}
+
+
+.mat-card-content {
+    background-color: rgb(247, 245, 245);
+    font-size: 16px;
+}
+.mat-checkbox-content {
+    background-color: rgb(247, 245, 245);
+}
+
+.mat-card-padding-reduced {
+    padding-bottom: 0px;
+}
+
+
+
+mat-card-title { 
+/* this affects mat-card-title 
+  OLPRR Incident Review
+*/
+    /* background-color: darkSeaGreen; */
+    margin-top: 10px;
+    margin-bottom: 24px;
+ 
+}
+
+    
+mat-card-header {
+    background-color: white;
+    margin-top: -10px; 
+    margin-bottom: -10px;
+    margin-left: -10px;
+  }
+
+  .fielddefaultbackground {
+    background-color: rgb(255, 255, 255) !important;
+    margin-bottom: 0px !important;
+}
+
+.mat-card-headertitle-background .fielddefaultbackground {
+    
+    /* background-color:white; */
+    font-size: 24px;
+    
+    
+}
+
+
+.height-auto-grow {
+    height: auto;
+}
+
+
+.mat-panel-description-sizer {
+    font-size:24px; 
+    padding:0px; 
+    text-align:left
+} 
+
+.mat-panel-title-text-align {
+    text-align: left;
+    font-size:24px;
+}
+
+
+.mat-card-subtitle-background .fielddefaultbackground {
+    background-color:white;
+    font-size: 18px;
+}
+
+.site-score-title {
+    background-color:white;
+    font-size: 24px;
+    padding-top: 20px;
+}
+
+/*
+US Postal Address Check
+*/
+.mat-card-title-background .fielddefaultbackground {
+    /* background-color: white; */
+    
+    font-size:18px !important;
+
+  }
+
+  .mat-card-address-data {
+    background-color: white;
+    padding: 0px; 
+    margin-bottom: -14px !important;
+    }
+
+/*   
+
+
+
+.mat-card-address-data {
+    padding: 0px; 
+    margin-bottom: -20px;
+} */
+
+.mat-tooltip {
+    font-size: 18px !Important;
+    background-color: red;
+    color: black;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    padding-right: 16px;
+  }
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+  }
+  
+.lit-entry {
+    margin-bottom: -20px;
+    padding:0px;
+    background-color: white;
+}
+
+.remove-margin-left {
+    margin-left: 0px !important;
+}
+
+.lit-entry-no-margin-left {
+    margin-left: 0px;
+}
+
+  .shadow-box {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px rgb(238, 236, 236);
+    
+  }
+
+/* 
+.fieldshover:hover {
+  background-color: rgb(238, 236, 236);
+  
+} */
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.btn.btn-space-table {
+    margin-left: 10px;
+}
+
+.btn-block-auto-width {
+    width: auto !important;
+}
+
+.btn:hover {
+    background-color: rgb(84, 196, 172);
+}
+
+
+
+/* 
+    site-photo-img-loader 
+    site-photo-img-figure
+    site-photo-caption-entry
+    Both used in site-photo 
+
+*/
+
+
+.site-photo-img-loader {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  mat-form-field[hidden] {
+    display: none;
+  }
+
+  .site-photo-img-figure {
+    width: 250px;
+    height: 250px;
+    background-color: rgb(248, 247, 247);
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    border: 2px;
+  }
+
+
+
+  .site-photo-caption-entry {
+    min-height: 90px; 
+    max-height: 107px; 
+    height: 107px;
+}
+
+
+
+
+
+/* Bar Graph Formatting for Assessment Screen */
+
+        .bar-graph-green {
+            background: green;
+        }
+        
+        .bar-graph-red {
+            background: red;
+        }
+
+        .bar-graph-grey {
+            background-color: lightgrey !important;
+            text-align: center !important;
+        }
+
+        .bar-graph-text-align {
+            text-align: center;
+        }
+
+                
+        .cellGraph {
+            float: left;
+            width: 175px;
+            height: 20px;
+            margin: 0px;
+            border: 1px solid rgba(0, 0, 0, .2);
+        }
+        .cellGraph, .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8 {
+            background: grey;
+        }
+
+
+/* Bar Graph Formatting for Assessment Screen */
+
+
+.search-margin-contact {
+    margin-top:20px;
+}
+
+.remove-padding {
+    padding: 0px !important;
+}
+
+
+.mat-card-remove-padding-right {
+    padding: 0px;
+}
+
+.lat-long-views {
+    width: 295px;
+}
+
+/* .form-shadow-box {
+    box-shadow: 0 9px 33px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+} */
+
+/* 
+.mat-option-text {
+    background-color:white;
+    color: blue;
+} */
+
+
+.site-current-score-format {
+     /* background-color:lightgrey; */
+    background-color:rgb(187, 185, 185);
+}
+
+
+.site-score-graph-format {
+    margin-left:5px; 
+    border-collapse: collapse; 
+    border: 1px solid #ddd; 
+    overflow-x: auto; 
+    width: 100%; 
+    text-align: center;
+}
+
+._ngcontent-c11 {
+    padding-top: 5px;
+}
+    
+
+
+.ng-star-inserted {
+    /* padding-top: 3px; */
+    list-style-type: none;
+}
+
+
+.responsive-table {
+    overflow-x: auto !important;
+}
+
+.mat-table {
+    min-width: 900px;
+}
+
+.mat-table-consultant {
+    min-width: 1100px;
+}
+
+.incident-contaminants-font-size {
+    font-size: 14px;
+}
+
+
+.comment-field-format {
+    min-height: 90px;
+    height: auto !important;
+}
+
+
+
+.mat-column-consultantId {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 25% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+
+.mat-column-publicNoticeId {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 35% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.mat-column-wrId{
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 35% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.mat-column-projMgrHistId {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 35% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+
+ .deq_title_format {
+     font-size: 16px;
+ }
+
+ 
+ .hol_title_format {
+    font-size: 36px;
+}
+
+
+
+
+@media print
+{
+  * {-webkit-print-color-adjust:exact;}
+  .no-print, .no-print *
+  {
+      display: none !important;
+      /* margin-top:0px;
+      padding-top:0px; */
+  }
+  body, html
+    { 
+      margin-top: 0px !important;
+      padding-top: 0px !important;
+      transform: scale(.97);
+    }
+}
+
+
+
+@media screen and (max-width: 1200px){
+    .mat-tab-link {
+        font-size: 20px;
+    }
+}
+
+

@@ -1,0 +1,45 @@
+
+<h1>An error occured.    </h1>
+
+<div class="error-container">
+
+  <!-- <div *ngIf="data?.error">
+    <h1>ERROR {{ data?.error}}</h1>
+    <h5 *ngIf="data?.error === 404">Not found :(</h5>
+    <a mat-raised-button [routerLink]="'/'">
+      <h5>Go Home</h5>
+    </a>
+  </div> -->
+
+  <div *ngIf="routeParams.message">
+    <h3 *ngIf="routeParams?.status && routeParams?.errname"> {{ routeParams?.errname }} {{ routeParams?.status }}</h3><br/>
+    <h3 *ngIf="routeParams?.apiurl">{{ routeParams?.apiurl }}</h3><br/>
+    <h3 *ngIf="routeParams?.message">{{ routeParams?.message }}</h3><br/>
+    <h3 *ngIf="routeParams?.uiurl && routeParams?.uiurl !== '/'">Page in error {{ routeParams?.uiurl }} </h3>
+    <div></div>
+    <a mat-raised-button
+      [routerLink]="routeParams?.uiurl"
+      *ngIf="routeParams?.uiurl && routeParams.status !== '404'">
+        <h5>Go Back to {{routeParams?.uiurl}}</h5>
+    </a>
+    <a mat-raised-button
+       routerLink="/"
+       *ngIf="!routeParams.uiurl || routeParams.status === '404'">
+        <h5>Go Back to Olprr Review Search</h5>
+    </a>
+  </div>
+
+  <!-- <div *ngIf="!routeParams && !data">
+      <h1>Unknown error, sorry :(</h1>
+      <a mat-raised-button [routerLink]="'/login'">
+        <h5>Go Home</h5>
+      </a>
+  </div>
+</div>
+
+<div class="pre-container" *ngIf="routeParams?.message">
+  <p>Error logged</p>
+  <pre>
+    {{ this.routeParams | json }}
+  </pre>
+</div> -->

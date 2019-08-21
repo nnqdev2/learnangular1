@@ -1,0 +1,37 @@
+export class LustIncidentUpdateUpdate {
+    lustIdIn: number;
+    facilityId?: number;
+    countyId: number;
+    dateReceived: Date;
+    siteName: string;
+    siteAddress: string;
+    siteCity: string;
+    siteZipcode: string;
+    sitePhone: string;
+    noValidAddress: number;
+    siteTypeId: number;
+    fileStatusId: number;
+    regTankInd: number;
+    hotInd: number;
+    nonRegTankInd: number;
+    brownfieldCodeId: number;
+    propertyTranPendingInd: number;
+    programTransferInd: number;
+    hotAuditRejectInd: number;
+    activeReleaseInd: number;
+    optionLetterSentInd: number;
+    siteComment: string;
+    seeAlsoComment: string;
+    publicSummaryComment: string;
+    geolocId: number;
+    olprrId: number;
+    discoveryDate: Date;
+    managementIdIn: number;
+    cleanupStartDt: Date;
+    releaseStopDt: Date;
+    finalInvcRqstDt: Date;
+    closedDt: Date;
+    letterOfAgreementDt: Date;
+    letterOfAgreementComment: string;
+    lastChangeBy: string;
+}

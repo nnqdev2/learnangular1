@@ -1,0 +1,346 @@
+<div class="loading-indicator" ng-container *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+
+<ng-template #showForm>
+    <div class="container-fluid">
+        <form [formGroup]="myForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST" (ngSubmit)="submit()">
+            <mat-card class="fielddefaultbackground remove-padding">
+                <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+                <mat-card-content class="fielddefaultbackground">
+                    <mat-card class="fielddefaultbackground remove-padding">
+                        <mat-card-title class="fielddefaultbackground">PCS </mat-card-title>
+                        <mat-card-content>
+                            <!--  -->
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group col-xs-12 col-sm-4 col-md-1 fieldshover margin-top-20">
+                                    <mat-label class="control-label" for="landFillAmount">Landfill Amt</mat-label>
+                                </div>
+
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                        <mat-form-field class="fieldshover"> 
+                                            <mat-label class="control-label" for="landFillAmount">Cubic Yards</mat-label>
+                                            <input matInput formControlName="landFillAmount" (change)="updateTheOtheColumn('landFillAmount',false)"/>                                                                        
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.landFillAmount"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field class="fieldshover"> 
+                                        <mat-label class="control-label" for="landFillAmount2">Tons</mat-label>
+                                        <input matInput formControlName="landFillAmount2" (change)="updateTheOtheColumn('landFillAmount2',true)"/>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.landFillAmount2"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+
+                                <div class="form-group col-xs-12 col-sm-6 col-md-3">     
+                                    <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="dispLandfillFacId">Landfill Facility</mat-label>
+                                        <mat-select formControlName="dispLandfillFacId" >
+                                            <mat-option *ngFor="let x of landfillFacilities" [value]="x?.id" >{{x?.descript}}</mat-option>                                               
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.dispLandfillFacId"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+
+                            </div>
+
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group col-xs-12 col-sm-4 col-md-1 margin-top-20">
+                                    <mat-label class="control-label" for="treatmentAmount">Treatment Amt</mat-label>
+                                </div>
+                            
+
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field class="fieldshover"> 
+                                        <mat-label class="control-label" for="treatmentAmount">Cubic Yards</mat-label>
+                                        <input matInput formControlName="treatmentAmount"  (change)="updateTheOtheColumn('treatmentAmount',false)"/>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.treatmentAmount"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field class="fieldshover"> 
+                                        <mat-label class="control-label" for="treatmentAmount2">Tons</mat-label>
+                                        <input matInput formControlName="treatmentAmount2" (change)="updateTheOtheColumn('treatmentAmount2',true)" />
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.treatmentAmount2"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+
+                                <div class="form-group col-xs-12 col-sm-6 col-md-3">     
+                                    <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="dispThrmFacId">Treatment Facility</mat-label>
+                                        <mat-select formControlName="dispThrmFacId" >
+                                            <mat-option *ngFor="let x of treatmentFacilities" [value]="x?.id" >{{x?.descript}}</mat-option>                                               
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.dispThrmFacId"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+
+                            </div>  
+
+
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group col-xs-12 col-sm-4 col-md-1 margin-top-20">
+                                    <mat-label class="control-label" for="treatmentAmount">On-Site Amt</mat-label>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field class="fieldshover"> 
+                                        <mat-label class="control-label" for="onSiteAmount">Cubic Yards</mat-label>
+                                        <input matInput formControlName="onSiteAmount" (change)="updateTheOtheColumn('onSiteAmount',false)"/>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.onSiteAmount"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field class="fieldshover"> 
+                                            <mat-label class="control-label" for="onSiteAmount2">Tons</mat-label>
+                                        <input matInput formControlName="onSiteAmount2" (change)="updateTheOtheColumn('onSiteAmount2',true)" /> 
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.onSiteAmount2"  [submitClicked]="submitClicked"></app-show-errors>                                    
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <div class="form-check fieldshover">
+                                        <label class="form-check-label ">
+                                            <mat-checkbox color="primary" formControlName="onSiteDisposalInd">On-Site Disposal</mat-checkbox> 
+                                        </label>
+                                    </div>
+                                    <app-show-errors [control]="myForm.controls.onSiteDisposalInd" [submitClicked]="submitClicked"></app-show-errors>
+                                </div>
+                            </div>
+
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group col-xs-12 col-sm-4 col-md-1 margin-top-20">
+                                    <mat-label class="control-label" for="offSiteAmount">Off-Site Amt</mat-label>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field > 
+                                        <mat-label class="control-label" for="offSiteAmount">Cubic Yards</mat-label>
+                                        <input matInput formControlName="offSiteAmount" (change)="updateTheOtheColumn('offSiteAmount',false)"/>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.offSiteAmount"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field > 
+                                        <mat-label class="control-label" for="offSiteAmount2">Tons</mat-label>
+                                        <input matInput formControlName="offSiteAmount2"  (change)="updateTheOtheColumn('offSiteAmount2',true)"/>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.offSiteAmount2"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                    <mat-form-field class="fieldshover"> 
+                                        <mat-label>Off-Site Disposal Address</mat-label>
+                                        <input matInput formControlName="offSiteDispAddr" />
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.offSiteDispAddr" [submitClicked]="submitClicked"></app-show-errors>
+                                </div>
+                            </div>
+
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group col-xs-12 col-sm-4 col-md-1 margin-top-20">
+                                    <mat-label class="control-label">Total Amt</mat-label>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field > 
+                                        <mat-label class="control-label" for="totalCubic">Total Cubic Yards</mat-label>
+                                        <input matInput formControlName="totalCubic" class="text-dark"/>                                    
+                                    </mat-form-field>
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                                    <mat-form-field > 
+                                        <mat-label class="control-label" for="totalTon">Total Tons</mat-label>
+                                        <input matInput formControlName="totalTon" class="text-dark"/>                                    
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                            <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                <div class="form-group required col-xs-12 col-sm-4 col-md-4">
+                                    <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="disposalDate">Disposal Date</mat-label>
+                                    <input matInput [max]="maxDate" [matDatepicker]="disposalDate"  formControlName="disposalDate">
+                                        <mat-datepicker-toggle matSuffix [for]="disposalDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #disposalDate [startAt]="maxDate" ></mat-datepicker>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.disposalDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+                                <div class="form-group col-xs-12 col-sm-4 col-md-4">     
+                                    <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="dispThrmFacId">Soil Status</mat-label>
+                                        <mat-select formControlName="soilStatusId" >
+                                            <mat-option *ngFor="let x of soilStatuses" [value]="x?.id" >{{x?.descript}}</mat-option>                                               
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="myForm.controls.soilStatusId"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div> 
+                                <div *ngIf="isUpdate" class="form-group  col-md-6">
+                                    <div class="form-row full-width">
+                                        <div class="form-group col-md-8 ">
+                                        <mat-form-field class="fieldshover"> 
+                                            <mat-label class="control-label">Last Change By</mat-label>
+                                            <input matInput formControlName="lastChangeBy"  />
+                                        </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-4">   
+                                        <mat-form-field > 
+                                            <mat-label class="control-label" for="city">Last Change Date</mat-label>
+                                            <input matInput formControlName="lastChangeDate"  />
+                                        </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header class="mat-expansion-panel-header">
+                                        <mat-panel-title class="mat-panel-title-text-align">
+                                            PCS Comment
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <mat-card-content>
+                                        <div class="form-row full-width mat-card-subtitle-background">
+                                            <mat-form-field class="example-full-width fieldshover site-photo-caption-entry">
+                                                <textarea matInput matTextareaAutoSize formControlName="comment" matAutosizeMinRos=3 matAutosizeMaxRows=3></textarea>
+                                            </mat-form-field>  
+                                        </div>  
+                                    </mat-card-content>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </mat-card-content>
+                    </mat-card>
+
+
+                    <mat-card class="remove-padding">
+                            <mat-card-title class="fielddefaultbackground">PCS Solid Waste Permit</mat-card-title>
+                            <mat-card-content>
+                                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                                        <mat-form-field class="fieldshover"> 
+                                            <mat-label class="control-label" for="swlaPermitNbr">SWLA Permit Number</mat-label>
+                                            <input matInput formControlName="swlaPermitNbr" />                                    
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.swlaPermitNbr"  [submitClicked]="submitClicked"></app-show-errors>
+                                    </div> 
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                                        <div class="form-check fieldshover">
+                                            <label class="form-check-label">
+                                                <mat-checkbox color="primary" formControlName="swFeeInd">SW Fee</mat-checkbox> 
+                                            </label>
+                                        </div>
+                                        <app-show-errors [control]="myForm.controls.swFeeInd" [submitClicked]="submitClicked"></app-show-errors>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                                        <div class="form-check fieldshover">
+                                            <label class="form-check-label">
+                                                <mat-checkbox color="primary" formControlName="landUseApproveInd">Land Use Approved</mat-checkbox> 
+                                            </label>
+                                        </div>
+                                        <app-show-errors [control]="myForm.controls.landUseApproveInd" [submitClicked]="submitClicked"></app-show-errors>
+                                    </div>
+                                    <div *ngIf="isUpdate" class="form-group col-md-6">
+                                        <div class="form-row full-width">
+                                            <div class="form-group col-md-8 ">
+                                            <mat-form-field class="fieldshover"> 
+                                                <mat-label class="control-label">Last Change By</mat-label>
+                                                <input matInput formControlName="pcsPermitLastChangeBy"  />
+                                            </mat-form-field>
+                                            </div>
+                                            <div class="form-group col-md-4">   
+                                            <mat-form-field class="fieldshover"> 
+                                                <mat-label class="control-label" for="pcsPermitLastChangeDate">Last Change Date</mat-label>
+                                                <input matInput formControlName="pcsPermitLastChangeDate"  />
+                                            </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="applReceivedDate">App. Received Date</mat-label>
+                                        <input matInput [max]="maxDate" [matDatepicker]="applReceivedDate"  formControlName="applReceivedDate">
+                                            <mat-datepicker-toggle matSuffix [for]="applReceivedDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #applReceivedDate [startAt]="maxDate" ></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.applReceivedDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                    </div> 
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="issueDate">Issue Date</mat-label>
+                                        <input matInput [max]="maxDate" [matDatepicker]="issueDate"  formControlName="issueDate">
+                                            <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #issueDate [startAt]="maxDate" ></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.issueDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                    </div> 
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="expirationDate">Expiration Date</mat-label>
+                                        <input matInput [matDatepicker]="expirationDate"  formControlName="expirationDate">
+                                            <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #expirationDate ></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.expirationDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                    </div> 
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="permitExtensionDate">Permit Extension Date</mat-label>
+                                        <input matInput [matDatepicker]="permitExtensionDate"  formControlName="permitExtensionDate">
+                                            <mat-datepicker-toggle matSuffix [for]="permitExtensionDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #permitExtensionDate  ></mat-datepicker>
+                                        </mat-form-field>
+                                        <app-show-errors [control]="myForm.controls.permitExtensionDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                    </div>  
+                                </div>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header class="mat-expansion-panel-header">
+                                            <mat-panel-title class="mat-panel-title-text-align">
+                                                PCS Permit Comment
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <mat-card-content>
+                                            <div class="form-row full-width mat-card-subtitle-background fielddefaultbackground">
+                                                <mat-label class="control-label" for="treatmentDescription">Treatment Comment Description</mat-label>
+                                                <mat-form-field class="comment-field-format">
+                                                    <textarea matInput matTextareaAutosize placeholder="Enter comment here" formControlName="treatmentDescription" matAutosizeMinRows=3 matAutosizeMaxRows=3></textarea>
+                                                </mat-form-field>  
+                                            </div>  
+                                        </mat-card-content>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </mat-card-content>
+                        </mat-card>
+                </mat-card-content> 
+            </mat-card>
+
+            <mat-card>
+                <mat-card-actions>
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="col-md-2" *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                        </div>
+                        <div *ngIf="isPermitUpdate && !viewOnly"  class="form-group  col-md-2">
+                            <div class="form-row full-width">
+                                <div class="form-group col-md-12">
+                                    <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onDelete(false)" >Delete Permit Only</button>
+                                </div>
+                            </div>
+                        </div>  
+                        <div *ngIf="isUpdate && !viewOnly"  class="form-group  col-md-2">
+                            <div class="form-row full-width">
+                                <div class="form-group col-md-12">
+                                    <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onDelete(true)" >{{deleteText}}</button>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onResetForm()" >Reset Form</button>
+                        </div>   -->
+                        <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onCancel()" >{{returnToList}}</button>
+                        </div>  
+                    </div>
+                </mat-card-actions>
+            </mat-card> 
+
+        </form>  
+    </div>
+</ng-template>

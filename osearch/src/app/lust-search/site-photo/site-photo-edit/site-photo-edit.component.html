@@ -1,0 +1,180 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+    <div class="container-fluid">
+        <!-- Form sitePhotoEditForm begins -->
+        <form [formGroup]="sitePhotoEditForm" class="form" role="form" autocomplete="off" method="POST" (ngSubmit)="submitSitePhoto()">
+            <mat-card>
+                <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+                <mat-card-content>
+                    <!--
+                    <div class="form-group">
+                        <label style="font-weight: 700;" for="pictureDate">Picture Date</label><br/>
+                        <input readonly matInput class="form-control" [max]="maxDate" [matDatepicker]="pictureDate" formControlName="pictureDate">
+                        <mat-datepicker-toggle matSuffix [for]="pictureDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pictureDate [startAt]="maxDate"></mat-datepicker>
+                        <app-show-errors [control]="sitePhotoEditForm.controls.pictureDate" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: 700;" for="caption">Caption</label><br/>
+                        <textarea matInput class="form-control" formControlName="caption"></textarea>                     
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: 700;" for="picture">Picture File </label>
+                        <button type="button" (click)="selectFile.click()">Select File</button><br/>
+                        <input type="file" hidden #selectFile (change)="onFileSelected($event)"/>
+                        <input type="hidden" #picture formControlName="picture" />
+                        <input type="hidden" #sitePictureId formControlName="sitePictureId" />
+                        <input type="hidden" #logNumber formControlName="logNumber" />
+                        <figure>
+                            <img [src]="imageSrc" />
+                        </figure>
+                        <app-show-errors [control]="sitePhotoEditForm.controls.picture" [submitClicked]="submitClicked"></app-show-errors>                           
+                    </div>
+                    -->
+                    <div class="form-row fielddefaultbackground">
+                        <div class="col-md-5 ">
+                                <div class="form-group required col-xs-10 col-xs-offset-1">
+                                    <br>
+                                    <mat-form-field class="fieldshover">
+                                        <mat-label class="control-label" for="pictureDate">Picture Date</mat-label>
+                                        <input matInput [max]="maxDate" [matDatepicker]="pictureDate"  formControlName="pictureDate">
+                                        <mat-datepicker-toggle matSuffix [for]="pictureDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #pictureDate [startAt]="maxDate" ></mat-datepicker>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="sitePhotoEditForm.controls.pictureDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div>   
+                                <div class="form-group required col-xs-10 col-xs-offset-1">
+                                    <mat-form-field class="fieldshover site-photo-caption-entry" > 
+                                        <mat-label class="control-label" for="caption">Caption</mat-label>
+                                        <textarea matInput matTextareaAutosize formControlName="caption" matAutosizeMinRows=5 matAutosizeMaxRows=5></textarea>                                  
+                                    </mat-form-field>
+                                    <app-show-errors [control]="sitePhotoEditForm.controls.caption"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group col-xs-10 col-xs-offset-1">
+                                <br>
+                                <button mat-raised-button color="primary" class="btn btn-success btn-md" type="button" (click)="selectFile.click()" [disabled]="viewOnly">Select Image</button>
+                            </div>
+                            <div class="form-group col-xs-10 col-xs-offset-1">
+                                <input type="file" hidden #selectFile (change)="onFileSelected($event)"/>
+                                <input type="hidden" #picture formControlName="picture" />
+                                <input type="hidden" #sitePictureId formControlName="sitePictureId" />
+                                <input type="hidden" #logNumber formControlName="logNumber" />
+                                <figure class="site-photo-img-figure">
+                                    <img class="site-photo-img-loader" [src]="imageSrc" (click)="onImageClick()" />
+                                </figure>
+                                <app-show-errors [control]="sitePhotoEditForm.controls.picture" [submitClicked]="submitClicked"></app-show-errors>    
+                            </div>
+                        </div>
+                    </div>
+
+                   <!--
+                                <div class="form-group required col-md-2">
+                                    <mat-form-field >
+                                        <mat-label class="control-label" for="pictureDate">Picture Date</mat-label>
+                                        <input matInput [max]="maxDate" [matDatepicker]="pictureDate"  formControlName="pictureDate">
+                                            <mat-datepicker-toggle matSuffix [for]="pictureDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #pictureDate [startAt]="maxDate" ></mat-datepicker>
+                                    </mat-form-field>
+                                    <app-show-errors [control]="sitePhotoEditForm.controls.pictureDate"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div>   
+                                <div class="form-group required col-md-5">
+                                    <mat-form-field > 
+                                        <mat-label class="control-label" for="caption">Caption</mat-label>
+                                        <textarea matInput formControlName="caption" />                                    
+                                    </mat-form-field>
+                                    <app-show-errors [control]="sitePhotoEditForm.controls.caption"  [submitClicked]="submitClicked"></app-show-errors>
+                                </div>
+                    
+                    <div class="md-form">
+                        <mat-form-field>
+                            <mat-label class="control-label" for="pictureDate">Picture Date</mat-label>
+                            <input matInput [max]="maxDate" [matDatepicker]="pictureDate" formControlName="pictureDate">
+                            <mat-datepicker-toggle matSuffix [for]="pictureDate"></mat-datepicker-toggle>
+                            <mat-datepicker #pictureDate [startAt]="maxDate"></mat-datepicker>
+                        </mat-form-field>
+                        <app-show-errors [control]="sitePhotoEditForm.controls.pictureDate" [submitClicked]="submitClicked"></app-show-errors>
+                        <mat-form-field>
+                            <mat-label class="control-label" for="caption">Caption</mat-label>
+                            <textarea matInput formControlName="caption"></textarea>
+                        </mat-form-field>
+                        <app-show-errors [control]="sitePhotoEditForm.controls.caption" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>
+                    <div class="md-form">
+                        <mat-label class="control-label">Picture File</mat-label>
+                        <input type="file" (change)="onFileSelected($event)"/>
+                        <input type="hidden" #picture formControlName="picture" />
+                        <img [src]="imageSrc" class="img-responsive" />
+                        <app-show-errors [control]="sitePhotoEditForm.controls.picture" [submitClicked]="submitClicked"></app-show-errors>   
+                    </div>-->
+                    <!--<div class="form-row full-width">
+                        <div class="form-group required col-md-4">
+
+
+                                                    <div class="control-label" for="picture">Picture File</div>
+                        <img [src]="imageSrc" class="img-responsive" />
+                        <input type="hidden" #picture formControlName="picture" />
+                        <input type="file" (change)="onFileSelected($event)" />
+                        <app-show-errors [control]="sitePhotoEditForm.controls.picture" [submitClicked]="submitClicked"></app-show-errors>  
+
+
+                        </div>
+                        <div class="form-group required col-md-4">
+                            <div class="control-label" for="picture">Picture File</div>
+                            <img [src]="imageSrc" class="img-responsive" />
+                            <input type="hidden" #picture formControlName="picture" />
+                            <input type="file" (change)="onFileSelected($event)" />
+                            <app-show-errors [control]="sitePhotoEditForm.controls.picture" [submitClicked]="submitClicked"></app-show-errors>
+                        </div>
+                    </div>
+                    <div class="form-row full-width example-container">
+                        <mat-label class="control-label" for="caption">Caption</mat-label>
+                        <mat-form-field class="example-full-width">
+                            <textarea matInput class="form-control rounded-0" rows="10" formControlName="caption"></textarea>
+                        </mat-form-field>
+                        <app-show-errors [control]="sitePhotoEditForm.controls.caption" [submitClicked]="submitClicked"></app-show-errors>
+                    </div>-->
+                </mat-card-content>
+            </mat-card>
+            <div *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></div>
+            <ng-template #showAllErrorsMessages>
+                <mat-card>
+                    <mat-card-content>
+                        <ngb-alert *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                            <div class="form-group row">
+                                <app-show-all-messages [messages]="findInvalidControls()" [submitClicked]="submitClicked"></app-show-all-messages>
+                            </div>
+                        </ngb-alert>
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>
+            <mat-card>
+                <mat-card-actions>
+                    <div class="form-row full-width">
+                        <div class="col-md-2" *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block">Save</button>
+                        </div>
+                        <div *ngIf="isUpdate && !viewOnly">
+                            <div class="full-width  col-md-12">
+                                <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"
+                                    (click)="delete()">Delete</button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"
+                                (click)="resetForm()">Reset Form</button>
+                        </div> -->
+                        <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"
+                                (click)="cancel()">{{returnToList}}</button>
+                        </div>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</ng-template>

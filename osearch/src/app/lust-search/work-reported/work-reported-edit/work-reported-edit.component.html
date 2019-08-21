@@ -1,0 +1,104 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+  <div class="container-fluid">
+    <form [formGroup]="myForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="submit()">
+        <mat-card class="fielddefaultbackground remove-padding">    
+          <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+          <mat-card-content> 
+              <div class="form-row full-width fielddefaultbackground remove-margin-left"> 
+                <div class="form-group required col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">     
+                  <mat-form-field class="fieldshover">
+                    <mat-label class="control-label" for="workType">Work Type</mat-label>
+                    <mat-select formControlName="wrkType" >
+                        <mat-option selected="selected" value=""></mat-option>
+                        <mat-option *ngFor="let workType of workTypes" [value]="workType?.id" >{{workType?.descript}}</mat-option>                                               
+                    </mat-select>
+                  </mat-form-field>
+                  <app-show-errors [control]="myForm.controls.wrkType"  [submitClicked]="submitClicked"></app-show-errors>
+                </div> 
+                <div class="form-group required col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-2">
+                  <mat-form-field class="fieldshover">
+                    <mat-label class="control-label" for="dateReceived">Report Date</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="wrkDate"  formControlName="wrkDate">
+                      <mat-datepicker-toggle matSuffix [for]="wrkDate"></mat-datepicker-toggle>
+                      <mat-datepicker #wrkDate [startAt]="maxDate" ></mat-datepicker>
+                  </mat-form-field>
+                  <app-show-errors [control]="myForm.controls.wrkDate"  [submitClicked]="submitClicked"></app-show-errors>
+                </div> 
+                <div class="form-group required col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">     
+                  <mat-form-field class="fieldshover">
+                    <mat-label class="control-label" for="workBy">Work By</mat-label>
+                    <input class="input-group required" formControlName="workBy" type="text" placeholder="Work By" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let wrb of wrbs$ | async; let index = index" [value]="wrb.value">
+                        {{ wrb.value }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <app-show-errors [control]="myForm.controls.workBy"  [submitClicked]="submitClicked"></app-show-errors>
+                </div> 
+              </div>   
+              <div *ngIf="isUpdate">
+                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                  <div class="form-group col-md-4 ">
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label">Last Change By</mat-label>
+                      <input matInput formControlName="lastChangeBy"  />
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-2">   
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="lastChangeDate">Last Change Date</mat-label>
+                      <input matInput formControlName="lastChangeDate"  />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              
+              <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header  class="mat-expansion-panel-header">
+                          <mat-panel-title class="mat-panel-title-text-align">
+                              Comment
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <mat-card-content>
+                          <div class="form-row full-width mat-card-subtitle-background remove-margin-left">
+                              <!-- <mat-label class="control-label" for="comment" sytle="padding-top:5px;">Comment</mat-label> -->
+                              <mat-form-field class="comment-field-format">
+                                  <textarea matInput matTextareaAutoSize placeholder="Enter comment here" formControlName="comment" matAutosizeMinRos=2 matAutosizeMaxRows=2></textarea>
+                              </mat-form-field>  
+                          </div>  
+                      </mat-card-content>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-card-content> 
+        </mat-card>
+        <mat-card class="remove-padding">
+          <mat-card-actions>
+              <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                  <div class="col-md-2" *ngIf="!viewOnly">
+                      <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                  </div>
+                  <!-- <div *ngIf="isUpdate">
+                      <div class="full-width  col-md-12">
+                          <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onDelete()" >Delete</button>
+                      </div>
+                  </div>  -->
+                  <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                      <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onResetForm()" >Reset Form</button>
+                  </div>   -->
+                  <div class="col-md-2 ">
+                      <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onCancel()" >{{returnToList}}</button>
+                  </div>                
+              </div>
+          </mat-card-actions> 
+        </mat-card>
+    </form>
+  </div>
+</ng-template>
+
+
+

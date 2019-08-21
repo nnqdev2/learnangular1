@@ -1,0 +1,74 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+    <div class="container-fluid">
+        <!-- Form incidentForm begins -->
+        <form [formGroup]="incidentForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="submitSiteAlias()">
+            <mat-card >    
+                <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+                <mat-card-content> 
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group required col-md-7">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="siteNameAlias">Site Name Alias</mat-label>
+                                <input matInput placeholder="Site Name Alias" formControlName="siteNameAlias">
+                            </mat-form-field>
+                            <app-show-errors [control]="incidentForm.controls.siteNameAlias"  [submitClicked]="submitClicked"></app-show-errors>                            
+                        </div>
+                    </div>
+                    <div *ngIf="isUpdate">
+                        <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                            <div class="form-group col-md-4 ">
+                            <mat-form-field class="fieldshover"> 
+                                <mat-label class="control-label">Last Change By</mat-label>
+                                <input matInput formControlName="lastChangeBy"  />
+                            </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-2">   
+                            <mat-form-field class="fieldshover"> 
+                                <mat-label class="control-label" for="lastChangeDate">Last Change Date</mat-label>
+                                <input matInput formControlName="lastChangeDate"  />
+                            </mat-form-field>
+                            </div>
+                        </div>
+                    </div>                    
+                </mat-card-content> 
+            </mat-card>
+            <!-- <div *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></div>
+            <ng-template #showAllErrorsMessages> 
+                <mat-card>
+                    <mat-card-content>
+                        <ngb-alert *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                        <div class="form-group row">
+                            <app-show-all-messages [messages]="findInvalidControls()"  [submitClicked]="submitClicked"></app-show-all-messages>
+                        </div>
+                        </ngb-alert>
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>              -->
+            <mat-card >
+                <mat-card-actions>
+                    <div class="form-row full-width remove-margin-left">
+                        <div class="col-md-2" *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block">Save</button>
+                            <!-- <button type="submit" class="btn-save btn-md btn-block" >Save</button> -->
+                            <!-- <button class="shadow-box btn btn-md" type="submit" >Save</button> -->
+                        </div>
+                        <div *ngIf="isUpdate && !viewOnly" class="col-md-2">
+                            <!-- <div class="col-md-2"> -->
+                                <button mat-raised-button color="primary" class="btn btn-success btn-md btn-block" (click)="delete()" >Delete</button>
+                            <!-- </div> -->
+                        </div>
+                        <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="resetForm()" >Reset Form</button>
+                        </div>   -->
+                        <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="cancel()" >{{returnToList}}</button>
+                        </div>                
+                    </div>
+                </mat-card-actions> 
+            </mat-card>
+        </form>
+    </div>
+</ng-template>

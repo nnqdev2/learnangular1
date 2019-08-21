@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <title>HOL</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+
+            <app-header></app-header>
+
+            <!-- <div id="sidenav" class="sidenav"  (mouseleave)="closeNav()"> -->
+            <div id="sidenav" class="sidenav"  (click)="closeNav()">
+                <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
+                <div style="width: 200px">
+                    <a [routerLink]="['/incident']">OLPRR Reporting</a>
+                    <a [routerLink]="['/osearch']">OLPRR Search</a>
+                    <a [routerLink]="['/lsearch']">LUST Search</a>
+                    <a [routerLink]="['/usearch']">UST Search</a>
+                    <a [routerLink]="['/csearch']">Contact Search</a>
+                    <a [routerLink]="['/dsearch']">HOTC Decomm Search</a>
+                    <div *ngIf="showCreateNewIncident; then newIncident"></div>
+                    <ng-template #newIncident>
+                        <a [routerLink]="['/lust']" >Create New Incident</a>
+                    </ng-template>
+                </div>
+                <!--style="display:none;"-->
+                <div class="LUSTMenu" id="lustMenu" style="display:none;">
+                    <ul>
+                        <div style="font-weight: bold;" id="lustIdentifier">
+                            LUST ID: {{ LUSTId }}
+                        </div>
+                        <div id="LUSTIdKey" style="display: none;">
+                            LUST Key: {{ LUSTIdKey }}
+                        </div>
+                        <!-- <li><a class="navbar-item" routerinLink='/lust'>Create New Incident</a></li>
+                        <li><a class="navbar-item" routerinLink='./'>Update Incident</a></li>
+                        <li><a class="navbar-item" routerinLink='contacts'>Contacts</a></li> -->
+
+                        
+                        <a (click)="routeIncident()">Incident</a>
+                        <a (click)="routeContacts()">Contacts</a>
+                        <a (click)="routeAssessment()">Assessment</a>
+                        <a (click)="routeProjMgrs()">Project Managers</a>
+                        <a (click)="routeSiteAlias()">Site Alias</a>
+                        <a (click)="routeWorkReported()">Work Reported</a>
+                        <a (click)="routePCSS()">PCS</a>
+                        <a (click)="routeInspections()">Inspections</a>
+                        <a (click)="routeSiteControl()">Site Control</a>
+                        <a (click)="routePublicNotice()">Public Notice</a>
+                        <a (click)="routeSitePhotos()">Site Photos</a>
+                        <a (click)="routeConsultant()">Consultant</a>
+
+                       
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="no-print">
+                <!-- <div class="sidenav-padding sidenav-open-style"><div (mouseenter)="openNav()" class="sidenav-menu-padding">&#9776; HOL Menu</div></div> -->
+                <div class="sidenav-padding sidenav-open-style"><div (click)="openNav()" class="sidenav-menu-padding">&#9776; Menu</div></div>
+            </div>      
+
+        
+        <!-- <div style="padding: 5px;"> -->
+            <!-- <div class="container-fluid noprint">
+                <nav mat-tab-nav-bar appearance="outline">
+                    <a mat-tab-link
+                    *ngFor="let routeLink of routeLinks; let i = index;"
+                    [routerLink]="routeLink.link"
+                    routerLinkActive #rla="routerLinkActive"
+                    (click)="activeLinkIndex = i"
+                    [routerLinkActiveOptions]="{exact: true}"
+                    >
+                        {{routeLink.label}}
+                    </a>
+                </nav>
+            </div> -->
+
+            <!-- <div class="container-fluid noprint">
+                <button mat-button [matMenuTriggerFor]="menu" appearance="outline">OLPRR Reporting</button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Item 1</button>
+                  <button mat-menu-item>Item 2</button>
+                </mat-menu> 
+                <button mat-button [matMenuTriggerFor]="menu1" appearance="outline">Menu</button>
+                <mat-menu #menu1="matMenu">
+                  <button mat-menu-item>Item 3</button>
+                  <button mat-menu-item>Item 4</button>
+                </mat-menu> 
+            </div> -->
+
+
+            <router-outlet></router-outlet>
+
+        <!-- </div>       -->
+    </body>
+</html>

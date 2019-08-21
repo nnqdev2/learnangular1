@@ -1,0 +1,26 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.4.1/oidc-client.min.js"></script>
+<script>
+  var config = {
+    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage })
+  };
+  var mgr = new Oidc.UserManager(config);
+  mgr.signinRedirectCallback().then(() => {
+    localStorage.setItem( Math.floor(Date.now() / 10000 )+ ' signinRedirectCallback html starts ....... ',
+    'here we are starting....');
+    var url = localStorage.getItem('dev:auth');
+    window.history.replaceState({},
+      window.document.title,
+      window.location.origin);
+    localStorage.setItem(Math.floor(Date.now() / 10000 )+ ' signinRedirectCallback html returning to this url ', url);
+    window.location = url;
+    localStorage.setItem( Math.floor(Date.now() / 10000) + ' signinRedirectCallback html done ....... ',
+    'here we are done....');
+  }, error => {
+    console.error(error);
+  });
+
+</script>
+
+
+
+

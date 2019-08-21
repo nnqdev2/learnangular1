@@ -1,0 +1,109 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
+  <ng-template #showForm>
+    <div class="container-fluid">
+      <form [formGroup]="myForm" class="form" role="form" autocomplete="off" method="POST"  (ngSubmit)="submit()">
+          <mat-card class="remove-padding">    
+            <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+            <mat-card-content> 
+                <div class="form-row full-width fielddefaultbackground remove-margin-left"> 
+                  <div class="form-group required col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">     
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="workType">Notice Type</mat-label>
+                      <mat-select formControlName="publicNoticeType" >
+                          <!-- <mat-option selected="selected" value=""></mat-option> -->
+                          <mat-option *ngFor="let publicNoticeType of publicNoticeTypes" [value]="publicNoticeType?.id" >{{publicNoticeType?.descript}}</mat-option>                                               
+                      </mat-select>
+                    </mat-form-field>
+                    <app-show-errors [control]="myForm.controls.publicNoticeType"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div> 
+                  <div class="form-group required col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="publicNoticeDate">Notice Date</mat-label>
+                      <input matInput [max]="maxDate" [matDatepicker]="publicNoticeDate"  formControlName="publicNoticeDate">
+                        <mat-datepicker-toggle matSuffix [for]="publicNoticeDate"></mat-datepicker-toggle>
+                        <mat-datepicker #publicNoticeDate [startAt]="maxDate" ></mat-datepicker>
+                    </mat-form-field>
+                    <app-show-errors [control]="myForm.controls.publicNoticeDate"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div> 
+                  <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="meetingDate">Meeting Date</mat-label>
+                      <input matInput [matDatepicker]="meetingDate"  formControlName="meetingDate">
+                        <mat-datepicker-toggle matSuffix [for]="meetingDate"></mat-datepicker-toggle>
+                        <mat-datepicker #meetingDate ></mat-datepicker>
+                    </mat-form-field>
+                    <app-show-errors [control]="myForm.controls.meetingDate"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div> 
+                  <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                      <div class="form-check fieldshover">
+                          <label class="form-check-label">
+                              <mat-checkbox color="primary" formControlName="meetingRqstInd">Meeting Requested?</mat-checkbox> 
+                          </label>
+                      </div>
+                      <app-show-errors [control]="myForm.controls.meetingRqstInd" [submitClicked]="submitClicked"></app-show-errors>
+                  </div>
+                </div>   
+                <div *ngIf="isUpdate">
+                  <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                      <mat-form-field > 
+                        <mat-label class="control-label">Last Change By</mat-label>
+                        <input matInput formControlName="lastChangeBy"  />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">   
+                      <mat-form-field > 
+                        <mat-label class="control-label" for="city">Last Change Date</mat-label>
+                        <input matInput formControlName="lastChangeDate"  />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="mat-expansion-panel-header">
+                            <mat-panel-title class="mat-panel-title-text-align">
+                                Comment
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-card-content>
+                            <div class="form-row full-width mat-card-subtitle-background">
+                                <!-- <mat-label class="control-label" for="comment" sytle="padding-top:5px;">Comment</mat-label> -->
+                                <mat-form-field class="example-full-width fieldshover site-photo-caption-entry">
+                                    <textarea matInput matTextareaAutosize formControlName="comment" matAutosizeMinRows=5 matAutosizeMaxRows=5></textarea>
+                                </mat-form-field>  
+                            </div>  
+                        </mat-card-content>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-card-content> 
+          </mat-card>
+          <mat-card class="remove-padding">
+            <mat-card-actions>
+                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                    <div class="col-md-2" *ngIf="!viewOnly">
+                        <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                    </div>
+                    <div *ngIf="isUpdate && !viewOnly">
+                        <div class="full-width  col-md-12">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onDelete()" >Delete</button>
+                        </div>
+                    </div> 
+                    <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onResetForm()" >Reset Form</button>
+                    </div>   -->
+                    <div class="col-md-2 ">
+                        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onCancel()" >{{returnToList}}</button>
+                    </div>                
+                </div>
+            </mat-card-actions> 
+          </mat-card>
+      </form>
+    </div>
+  </ng-template>
+  
+  
+  
+  

@@ -1,0 +1,53 @@
+<div class="container-fluid"> 
+  <mat-card>  
+    <mat-card-title class="mat-card-headertitle-background">    
+      Consultant Search  {{logNumber}}
+    </mat-card-title> 
+    <mat-card-content>    
+      <form [formGroup]="consultantSearchFilterForm" class="form-group fielddefaultbackground"  role="form" autocomplete="off" method="POST"  (ngSubmit)="submitSearchFilterForm()">    
+        <div class="form-row full-width">
+          <div class="form-group col-md-3">
+            <mat-form-field class="fieldshover">
+              <mat-label>Company</mat-label>
+              <input matInput formControlName="companyName">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-3">
+            <mat-form-field class="fieldshover">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city">
+            </mat-form-field>
+          </div> 
+          <div class="form-group col-md-2">
+            <mat-form-field class="fieldshover">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zipCode">
+            </mat-form-field>
+          </div>
+        </div>    
+        <div class="form-group row">  
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block">Search</button>    
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="resetSearchFilterForm()" >Clear</button>    
+          </div>    
+          <div class="col-sm-2 col-md-2 col-lg-2" *ngIf="showAdd"> 
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onAdd()" >Add New Consultant</button>    
+            </div>  
+        </div>     
+      </form>    
+    </mat-card-content>    
+  </mat-card>  
+  <div *ngIf="showSearchResultsFlag==true; then showResultComp ">  </div> 
+  <ng-template #showResultComp>
+    <app-consultant-search-result [consultantSearchFilter]="consultantSearchFilter" (rowSelected)="onSelected($event)"  ></app-consultant-search-result>
+  </ng-template>
+  
+</div>

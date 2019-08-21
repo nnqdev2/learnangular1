@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-title class="mat-card-headertitle-background"> Site Photos {{logNumber}} {{siteName}}</mat-card-title>  
+  <mat-card-content>    
+      <div class="sitePtotos">
+          <div class="loading-indicator" *ngIf="sitePhotoDataSource.sitePhotoLoading$ | async">
+              <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+          </div>
+          <div class="form-group row fielddefaultbackground">  
+            <div class="col-sm-10 col-md-10 col-lg-10"></div>
+            <div *ngIf="totalRows > 0">
+                <div class="col-sm-2 col-md-2 col-lg-2"> 
+                    <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                </div>
+            </div>
+          </div>
+          <div class="responsive-table">
+            <mat-table class="child-table"  cdkScrollable [dataSource]="sitePhotoDataSource">
+                <ng-container matColumnDef="pictureDate">
+                    <mat-header-cell *matHeaderCellDef >Picture Date</mat-header-cell>
+                    <mat-cell *matCellDef="let sitePhoto">{{sitePhoto.pictureDate | date:'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="caption">
+                    <mat-header-cell *matHeaderCellDef >Caption</mat-header-cell>
+                    <mat-cell *matCellDef="let sitePhoto">{{sitePhoto.caption}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="lastChangeBy">
+                    <mat-header-cell *matHeaderCellDef >Last Change By</mat-header-cell>
+                    <mat-cell *matCellDef="let sitePhoto">{{sitePhoto.lastChangeBy}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="lastChangeDate">
+                    <mat-header-cell *matHeaderCellDef >Last Change Date</mat-header-cell>
+                    <mat-cell *matCellDef="let sitePhoto">{{sitePhoto.lastChangeDate | date:'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="pictureId">
+                    <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+                    <div  *ngIf="showAdd"> 
+                        <mat-cell *matCellDef="let sitePhoto"> 
+                            <!-- <button mat-raised-button color="primary" class="btn btn-success btn-md" [matMenuTriggerFor]="menu">Action</button> -->
+                            <!-- <mat-menu #menu="matMenu"> -->
+                                <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(sitePhoto) ">View/Edit</button>
+                                <button mat-raised-button color="primary" class="btn btn-space-table btn-success btn-md" (click)="onDelete(sitePhoto) ">Delete</button> 
+                            <!-- </mat-menu> -->
+                        </mat-cell>
+                    </div>
+                    <div  *ngIf="!showAdd"> 
+                        <mat-cell *matCellDef="let sitePhoto"> 
+                            <!-- <button mat-raised-button color="primary" class="btn btn-success btn-md" [matMenuTriggerFor]="menu">Action</button> -->
+                            <!-- <mat-menu #menu="matMenu"> -->
+                                <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(sitePhoto) ">View</button>
+                            <!-- </mat-menu> -->
+                        </mat-cell>
+                    </div>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+            </mat-table>
+        </div>
+      </div>          
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-actions>
+      <div class="form-row full-width">
+          <div class="col-md-2 " *ngIf="showAdd">
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"  (click)="add()"  >Add New Site Photo </button>
+          </div>
+          <div class="col-md-1 ">
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="refresh()" >Refresh</button>
+          </div>
+      </div>
+  </mat-card-actions> 
+</mat-card>

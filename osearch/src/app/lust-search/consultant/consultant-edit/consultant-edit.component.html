@@ -1,0 +1,133 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+  <div class="container-fluid">
+      <form [formGroup]="consultantForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="submit()">
+          <mat-card class="remove-padding">    
+            <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+              <mat-card-content> 
+                <div class="form-row full-width fielddefaultbackground remove-margin-left"> 
+                  <div class="form-group required col-md-6">
+                      <mat-form-field class="fieldshover"> 
+                          <mat-label class="control-label" for="companyName">Company Name</mat-label>
+                          <input matInput formControlName="companyName" />                                    
+                      </mat-form-field>
+                      <app-show-errors [control]="consultantForm.controls.companyName"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div>        
+                  <div class="form-group required col-md-6">
+                      <mat-form-field class="fieldshover"> 
+                          <mat-label class="control-label" for="address">Address</mat-label>
+                          <input matInput formControlName="address" />                                    
+                      </mat-form-field>
+                      <app-show-errors [control]="consultantForm.controls.address"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div> 
+                </div> 
+                <div class="form-row full-width fielddefaultbackground remove-margin-left">   
+                  <div class="form-group required col-xm-12 col-sm-6 col-md-6 col-lg-4">
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="city">City</mat-label>
+                      <input matInput formControlName="city" />                                    
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.city"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div>        
+                  <div class="form-group required col-xm-12 col-sm-6 col-md-6 col-lg-4">     
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="state">State</mat-label>
+                      <mat-select formControlName="state" >
+                          <mat-option selected="selected" value=""></mat-option>
+                          <mat-option *ngFor="let state of states" [value]="state?.stateCode" >{{state?.stateName}}</mat-option>                                               
+                      </mat-select>
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.state"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div>  
+                  <div class="form-group required col-xm-12 col-sm-6 col-md-6 col-lg-4">     
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="zip">Zip</mat-label>
+                      <input matInput formControlName="zip" />  
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.zip" ></app-show-errors>
+                  </div>
+                </div>
+                <div class="form-row full-width fielddefaultbackground remove-margin-left"> 
+                  <div class="form-group required col-xm-12 col-sm-6 col-md-6 col-lg-4">
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="phone">Phone</mat-label>
+                      <input matInput formControlName="phone" placeholder="{{ phonePlaceHolder }}"/>                                    
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.phone" [submitClicked]="submitClicked"></app-show-errors>
+                  </div>  
+                  <div class="form-group  col-xm-12 col-sm-6 col-md-6 col-lg-4">
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="fax">Fax</mat-label>
+                      <input matInput formControlName="fax" placeholder="{{ phonePlaceHolder }}"/>                                    
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.fax" [submitClicked]="submitClicked"></app-show-errors>
+                  </div>  
+                  <div class="form-group  col-xm-12 col-sm-6 col-md-6 col-lg-4">
+                    <mat-form-field class="fieldshover"> 
+                      <mat-label class="control-label" for="email">Email</mat-label>
+                      <input matInput formControlName="email" />                                    
+                    </mat-form-field>
+                    <app-show-errors [control]="consultantForm.controls.email"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div>  
+                </div>
+                <div *ngIf="isUpdate">
+                  <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                    <div class="form-group col-xm-12 col-sm-6 col-md-6 col-lg-4">
+                      <mat-form-field class="fieldshover"> 
+                        <mat-label class="control-label">Last Change By</mat-label>
+                        <input matInput formControlName="lastChangeBy"  />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col-xm-12 col-sm-6 col-md-6 col-lg-4">   
+                      <mat-form-field class="fieldshover"> 
+                        <mat-label class="control-label" for="lastChangeDate">Last Change Date</mat-label>
+                        <input matInput formControlName="lastChangeDate"  />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              <!-- <div *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></div>
+              <ng-template #showAllErrorsMessages> 
+                  <mat-card>
+                      <mat-card-content>
+                          <ngb-alert *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                          <div class="form-group row">
+                              <app-show-all-messages [messages]="findInvalidControls()"  [submitClicked]="submitClicked"></app-show-all-messages>
+                          </div>
+                          </ngb-alert>
+                      </mat-card-content>
+                  </mat-card>
+              </ng-template> -->
+
+            </mat-card-content> 
+          </mat-card>
+
+          
+              <mat-card class="remove-padding">
+                  <mat-card-actions>
+                      <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                          <div class="col-md-2" *ngIf="!viewOnly">
+                              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                          </div>
+                          <div *ngIf="isUpdate && !viewOnly">
+                              <div class="full-width  col-md-12">
+                                  <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onDelete()" >Delete</button>
+                              </div>
+                          </div> 
+                          <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="resetForm()" >Reset Form</button>
+                          </div>   -->
+                          <div class="col-md-2 ">
+                              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="cancel()" >{{returnToList}}</button>
+                          </div>                
+                      </div>
+                  </mat-card-actions> 
+              </mat-card>
+          </form>
+      </div>
+  </ng-template>

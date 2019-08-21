@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "HOL-Reports", "HOL-Reports\HOL-Reports.rptproj", "{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Debug|Default.ActiveCfg = Debug
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Debug|Default.Build.0 = DebugLocal
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Debug|Default.Deploy.0 = DebugLocal
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.DebugLocal|Default.Build.0 = DebugLocal
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Release|Default.ActiveCfg = Release
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Release|Default.Build.0 = Release
+		{BED2F2FB-515E-4D74-A10E-5A5AF6D5EC91}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

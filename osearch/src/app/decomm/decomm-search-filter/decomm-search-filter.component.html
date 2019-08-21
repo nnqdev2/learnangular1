@@ -1,0 +1,129 @@
+<div class="container-fluid"> 
+  <mat-card>  
+    <mat-card-title >    
+      HOTC Decommissioning Search
+    </mat-card-title> 
+    <mat-card-content>    
+      <form [formGroup]="hotcSearchFilterForm" class="form-group fielddefaultbackground"  role="form" autocomplete="off" method="POST"  (ngSubmit)="submitSearchFilterForm()">    
+        
+        <div class="form-row full-width fielddefaultbackground">   
+          <div class="form-group col-xs-12 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+              <mat-form-field class="fieldshover">
+                <mat-label>County</mat-label>
+                <input matInput formControlName="county"  #County maxlength="2" size="2" (input)="onInputEntry($event, year)">
+              </mat-form-field>
+          </div>
+          <div class="form-group col-xs-12 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+            <mat-form-field class="fieldshover">
+              <mat-label>Year</mat-label>
+              <input matInput formControlName="year" #year maxlength="2" size="2" (input)="onInputEntry($event, id)">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-xs-12 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+            <mat-form-field class="fieldshover">
+              <mat-label>Log Seq Nbr/Hot Id</mat-label>
+              <input matInput formControlName="id" #id maxlength="10" size="10" >
+            </mat-form-field>
+          </div>      
+          <div class="form-group col-md-4">
+          </div>   
+          <div class="form-group col-xs-12 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+            <mat-form-field class="fieldshover">
+                <mat-label class="control-label" for="searchType">Search Type</mat-label>
+                <mat-select formControlName="searchType">
+                        <mat-option selected="selected" value=""></mat-option>
+                        <mat-option *ngFor="let lustHotcSearchType of lustHotcSearchTypes" 
+                        [value]="lustHotcSearchType?.sid" >
+                        {{lustHotcSearchType?.descript}}
+                        </mat-option>
+                </mat-select>                                        
+            </mat-form-field>
+          </div> 
+        </div>
+        
+        <div class="form-row full-width fielddefaultbackground">
+          <div class="form-group col-xs-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+              <mat-form-field class="fieldshover">
+                  <mat-label class="control-label" for="streetNbr">Street Number</mat-label>
+                  <input matInput #streetNbr formControlName="streetNbr">
+              </mat-form-field>
+          </div>
+          <div class="form-group col-xs-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+              <mat-form-field class="fieldshover">                  
+                  <mat-label class="control-label" for="streetQuad">Quadrant</mat-label>
+                  <mat-select formControlName="streetQuad">
+                          <mat-option selected="selected" value=""></mat-option>
+                          <mat-option *ngFor="let quadrant of quadrants" 
+                          [value]="quadrant?.quadrant" >
+                          {{quadrant?.quadrant}}
+                          </mat-option>
+                  </mat-select>                                    
+              </mat-form-field>
+          </div> 
+          <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+              <mat-form-field class="fieldshover">
+                  <mat-label class="control-label" for="streetName">Street Name </mat-label>
+                  <input matInput formControlName="streetName">
+              </mat-form-field>
+          </div>
+          <div class="form-group col-xs-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+              <mat-form-field class="fieldshover">
+                  <mat-label class="control-label" for="streetType">Street Type</mat-label>
+                      <mat-select formControlName="streetType">
+                              <mat-option selected="selected" value=""></mat-option>
+                              <mat-option *ngFor="let streetType of streetTypes" 
+                              [value]="streetType?.streetType" >
+                              {{streetType?.streetType}}
+                              </mat-option>
+                      </mat-select>                                        
+              </mat-form-field>
+          </div> 
+      </div>
+      <div class="form-row full-width fielddefaultbackground">
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+            <mat-form-field class="fieldshover">
+                <mat-label class="control-label" for="otherAddr">Other Address</mat-label>
+                <input matInput formControlName="otherAddr" />
+            </mat-form-field>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+            <mat-form-field class="fieldshover" >
+                <mat-label class="control-label" for="city">City</mat-label>
+                <input matInput formControlName="city">
+            </mat-form-field>
+        </div> 
+        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+          <mat-form-field class="fieldshover">  
+            <mat-label>Zipcode</mat-label>  
+            <input class="input-group" formControlName="zipCode" type="text" placeholder="Zipcode" aria-label="Zipcode" matInput [matAutocomplete]="auto">
+            <mat-autocomplete  #auto="matAutocomplete">
+              <mat-option *ngFor="let zip of filteredZips | async" [value]="zip.zipCode1">
+                {{zip.zipCode1}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>    
+        </div>   
+      </div>
+        <div class="form-group row fielddefaultbackground">  
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block">Search</button>    
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="resetSearchFilterForm()" >Clear</button>    
+          </div>    
+          <div *ngIf="showAdd; then showAddButton ">  </div> 
+          <ng-template #showAddButton>
+            <div class="col-sm-2 col-md-2 col-lg-3"> 
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onAddHot()" >Add HOT Clean Decomm</button>    
+            </div>  
+        </ng-template>
+        </div>     
+      </form>    
+    </mat-card-content>    
+  </mat-card>  
+  <div *ngIf="showSearchResultsFlag==true; then showResultComp ">  </div> 
+  <ng-template #showResultComp>
+    <app-decomm-search-result [hotcSearchFilter]="hotcSearchFilter" (rowSelected)="onSelected($event)"  ></app-decomm-search-result>
+  </ng-template>
+  
+</div>

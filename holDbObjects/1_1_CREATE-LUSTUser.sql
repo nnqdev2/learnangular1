@@ -1,0 +1,9 @@
+USE LUST
+GO
+
+IF NOT EXISTS (SELECT * FROM sysusers WHERE name = N'LUSTUser')
+CREATE USER [LUSTUser] FOR LOGIN [lustuser]
+GO
+
+
+

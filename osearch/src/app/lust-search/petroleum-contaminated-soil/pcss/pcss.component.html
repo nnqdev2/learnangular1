@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-title > PCS Soil {{logNumber}} {{siteName}} </mat-card-title>  
+  <mat-card-content>    
+    <div class="container-fluid remove-padding">
+      <div class="loading-indicator" *ngIf="pcsDataSource.pcsLoading$ | async">
+          <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+      </div>
+      <div class="form-group row fielddefaultbackground">  
+        <div class="col-sm-10 col-md-10 col-lg-10"></div>
+        <div *ngIf="totalRows > 0">
+            <div class="col-sm-2 col-md-2 col-lg-2"> 
+                <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+            </div>
+        </div>
+      </div>
+      <div class="responsive-table">
+        <mat-table class="child-table" cdkScrollable [dataSource]="pcsDataSource">          
+          <ng-container matColumnDef="pcsId">
+            <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+            <mat-cell *matCellDef="let pcs"> 
+              <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(pcs) ">Select</button>
+              <!-- <button mat-menu-item (click)="onDelete(pcs) ">Delete</button>  -->
+            </mat-cell>
+          </ng-container>   
+          <ng-container matColumnDef="disposalDate">
+            <mat-header-cell *matHeaderCellDef  >Disposal Date</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.disposalDate | date:'MM/dd/yyyy'}}</mat-cell>
+          </ng-container>  
+          <ng-container matColumnDef="landfillAmtYrds3">
+            <mat-header-cell *matHeaderCellDef  >Landfill Yrds</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.landfillAmtYrds3}}</mat-cell>
+          </ng-container>     
+          <ng-container matColumnDef="thermalAmtYrds3">
+            <mat-header-cell *matHeaderCellDef  >Treatment Yrds</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.thermalAmtYrds3}}</mat-cell>
+          </ng-container>    
+          <ng-container matColumnDef="onSiteAmtYrds3">
+            <mat-header-cell *matHeaderCellDef  >OnSite Yrds</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.onSiteAmtYrds3}}</mat-cell>
+          </ng-container>     
+          <ng-container matColumnDef="offSiteAmtYrds3">
+            <mat-header-cell *matHeaderCellDef  >OffSite Yrds</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.offSiteAmtYrds3}}</mat-cell>
+          </ng-container>             
+          <ng-container matColumnDef="onSiteDisposalInd">
+            <mat-header-cell *matHeaderCellDef  >OnSite Disp?</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.onSiteDisposalInd}}</mat-cell>
+          </ng-container>     
+          <ng-container matColumnDef="offSiteDispAddr">
+            <mat-header-cell *matHeaderCellDef  >OffSite Addr</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.offSiteDispAddr}}</mat-cell>
+          </ng-container>   
+          <ng-container matColumnDef="swlaPermitNbr">
+            <mat-header-cell *matHeaderCellDef  >SWLA Permit</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.swlaPermitNbr}}</mat-cell>
+          </ng-container>  
+          <ng-container matColumnDef="lastChangeBy">
+            <mat-header-cell *matHeaderCellDef  >Last Change By</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.lastChangeBy}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="lastChangeDate">
+            <mat-header-cell *matHeaderCellDef   >Last Change Date</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.lastChangeDate | date:'MM/dd/yyyy'}}</mat-cell>
+          </ng-container>>
+          <ng-container matColumnDef="pcsComment">
+            <mat-header-cell *matHeaderCellDef  >Comment</mat-header-cell>
+            <mat-cell *matCellDef="let pcs">{{pcs.pcsComment}}</mat-cell>
+          </ng-container>   
+          <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+        </mat-table>
+      </div>
+    </div>          
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-actions>
+    <div class="form-row full-width">
+      <div class="col-md-2 " *ngIf="showAdd">
+        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block"  (click)="add()"  >Add New PCS</button>
+      </div>
+      <div class="col-md-1 ">
+        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="refresh()" >Refresh</button>
+      </div>
+    </div>
+  </mat-card-actions> 
+</mat-card>

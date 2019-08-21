@@ -1,0 +1,35 @@
+export interface LustHotcGet {
+    lustIncidentLustId: number;
+    lustManagementLustId: number;
+    lustManagementMangementId: number;
+    lustManagementReleaseStopDate: Date;
+    lustManagementFinalInvcRqstDate: Date;
+    hotcHotManagementLogNumber: string;
+    lustIncidentSiteAddress: string;
+    lustIncidentSiteName: string;
+    lustIncidentSiteCity: string;
+    lustIncidentSiteZip: string;
+    hotcHotManagementHotId?: number;
+    hotcHotMangementCheckNbr: string;
+    hotcHotManagementCheckReceivedDate?: Date;
+    hotcHotManagementFeeAmt: string;
+    hotcHotManagementAuditDate?: Date;
+    hotcHotManagementDecommType?: string;
+    hotcHotManagementReportRejected: string;
+    hotcHotManagementHotSpId: string;
+    hotcHotManagementHotComments: string;
+    contactAffilId: number;
+    contactOrganization: string;
+    contactFirstName: string;
+    contactLastName: string;
+    contactStreet: string;
+    contactCity: string;
+    contactState: string;
+    contactZip: string;
+    status: string;
+    lustIncidentLogNumber: string;
+    serviceOwnerFullName: string;
+    serviceOwnerLicenseStatus: string;
+    lustManagementLastChangeBy: string;
+    lustManagementLastChangeDate: Date;
+}

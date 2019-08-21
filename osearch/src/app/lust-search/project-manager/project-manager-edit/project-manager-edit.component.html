@@ -1,0 +1,92 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+  <div class="container-fluid">
+      <!-- Form incidentForm begins -->
+      <form [formGroup]="projectManagerForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="submit()">
+          <mat-card class="remove-padding">    
+            <mat-card-title class="mat-card-headertitle-background">{{formTitle}}</mat-card-title>
+              <mat-card-content> 
+                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                  <div class="form-group col-md-11"></div>
+                </div>
+                <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                  <div *ngIf="showUnametxtBoxFlag==true; then showResulttxtBox "></div>
+                  <ng-template #showResulttxtBox>
+                      <div class="form-group required col-md-3">
+                          <mat-form-field class="fieldshover"> 
+                            <mat-label class="control-label" for="userName">Project Manager</mat-label>
+                              <input matInput formControlName="userName" />                                    
+                          </mat-form-field>
+                          <app-show-errors [control]="projectManagerForm.controls.userName"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                  </ng-template>                  
+                  <div *ngIf="showUnameDrpFlag==true; then showResultDrp "></div>
+                  <ng-template #showResultDrp>
+                      <div class="form-group required col-md-2">                    
+                          <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="prjManager">Project Manager</mat-label>
+                            <mat-select formControlName="uName" >
+                              <mat-option value=""></mat-option>
+                              <mat-option *ngFor="let uName of pmActives" [value]="uName?.pmLogin" >{{uName?.pmName}}</mat-option>
+                            </mat-select>    
+                          </mat-form-field>
+                          <app-show-errors [control]="projectManagerForm.controls.uName"  [submitClicked]="submitClicked"></app-show-errors>                            
+                        </div>
+                  </ng-template>                  
+                  <div class="form-group required col-md-2">
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="assignedDate">Assigned Date</mat-label>
+                        <input matInput [max]="maxDate" [matDatepicker]="assignedDate"  formControlName="assignedDate">
+                        <mat-datepicker-toggle matSuffix [for]="assignedDate"></mat-datepicker-toggle>
+                        <mat-datepicker #assignedDate [startAt]="maxDate" ></mat-datepicker>
+                      </mat-form-field>
+                      <app-show-errors [control]="projectManagerForm.controls.assignedDate"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div> 
+                  <div class="form-group col-md-2">
+                    <mat-form-field class="fieldshover">
+                      <mat-label class="control-label" for="endDate">End Date</mat-label>
+                      <input matInput [max]="maxDate" [matDatepicker]="endDate"  formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate [startAt]="maxDate" ></mat-datepicker> 
+                      </mat-form-field>
+                      <app-show-errors [control]="projectManagerForm.controls.endDate"  [submitClicked]="submitClicked"></app-show-errors>
+                  </div>
+              </div>
+              <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                <div class="form-group col-md-3">
+                  <mat-form-field class="fieldshover"> 
+                    <mat-label class="control-label" for="lastChangeBy">Last Changed By</mat-label>
+                      <input matInput formControlName="lastChangeBy" />                                    
+                  </mat-form-field>
+                  <app-show-errors [control]="projectManagerForm.controls.lastChangeBy"  [submitClicked]="submitClicked"></app-show-errors>
+                </div>  
+                <div class="form-group col-md-2">
+                  <mat-form-field class="fieldshover">
+                    <mat-label class="control-label" for="lastChangeDate">Last Changed date</mat-label>
+                    <input matInput formControlName="lastChangeDate" />    
+                  </mat-form-field>
+                    <app-show-errors [control]="projectManagerForm.controls.lastChangeDate"  [submitClicked]="submitClicked"></app-show-errors>
+                </div> 
+              </div>                     
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="remove-padding">
+              <mat-card-actions>
+                  <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                      <div class="col-md-2" *ngIf="!viewOnly">
+                          <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                      </div>
+                      <!-- <div class="col-md-2 " *ngIf="!viewOnly">
+                          <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="resetForm()" >Reset Form</button>
+                      </div>   -->
+                      <div class="col-md-2 ">
+                          <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="cancel()" >{{returnToList}}</button>
+                      </div>                
+                  </div>
+              </mat-card-actions> 
+          </mat-card>
+      </form>
+  </div>
+</ng-template>                  

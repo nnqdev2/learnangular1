@@ -1,0 +1,12 @@
+C:\Data\Developement\Logging\Logging\LogService\LogService\bin\Debug\netcoreapp2.0\LogService.deps.json
+C:\Data\Developement\Logging\Logging\LogService\LogService\bin\Debug\netcoreapp2.0\LogService.dll
+C:\Data\Developement\Logging\Logging\LogService\LogService\bin\Debug\netcoreapp2.0\LogService.pdb
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.csproj.CoreCompileInputs.cache
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.AssemblyInfoInputs.cache
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.AssemblyInfo.cs
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.dll
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.pdb
+C:\Data\Developement\Logging\Logging\LogService\LogService\bin\Debug\netcoreapp2.0\DataService.dll
+C:\Data\Developement\Logging\Logging\LogService\LogService\bin\Debug\netcoreapp2.0\DataService.pdb
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.csprojAssemblyReference.cache
+C:\Data\Developement\Logging\Logging\LogService\LogService\obj\Debug\netcoreapp2.0\LogService.csproj.CopyComplete

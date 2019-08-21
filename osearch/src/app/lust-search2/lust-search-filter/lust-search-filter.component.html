@@ -1,0 +1,281 @@
+<!-- Main Toolbar of an App -->    
+<!-- <mat-toolbar color="primary">    
+  <span>OLPRR Search </span>    
+  <span class="demo-toolbar"></span>    
+  
+</mat-toolbar>     -->
+
+<div class="container-fluid fielddefaultbackground"> 
+  <mat-card class="fielddefaultbackground">    
+    <!-- Title of an Card -->    
+    <mat-card-title class="fielddefaultbackground">    
+      LUST Search    
+    </mat-card-title>  
+    
+  
+    <mat-card-content class="fielddefaultbackground">    
+      <form [formGroup]="lustSearchFilterForm" class="form-group fielddefaultbackground"  role="form" autocomplete="off" method="POST"  (ngSubmit)="submitLustSearchFilterForm()">  
+        <!-- <div class="form-row mt-4 full-width"> -->
+            <mat-card-content id="2nd"  class="fielddefaultbackground">      
+          <div class="form-row full-width fielddefaultbackground">   
+            <div class="form-group col-md-1">
+                <mat-form-field class="fieldshover">
+                  <mat-label>Log County</mat-label>
+                  <input matInput formControlName="logCounty"  #logCounty maxlength="2" size="2" (input)="onInputEntry($event, logYear)" autofocus>
+                </mat-form-field>
+            </div>
+
+          <div class="form-group col-md-1">
+            <mat-form-field class="fieldshover">
+              <mat-label>Log Year</mat-label>
+              <input matInput formControlName="logYear" #logYear maxlength="2" size="2" (input)="onInputEntry($event, logSeqNbr)">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-2">
+            <mat-form-field class="fieldshover">
+              <mat-label>Log Seq Nbr</mat-label>
+              <input matInput formControlName="logSeqNbr" #logSeqNbr maxlength="4" size="4" (input)="onInputEntry($event, facilityId)">
+            </mat-form-field>
+          </div> 
+          <div class="form-group col-md-2">
+            <mat-form-field class="fieldshover">
+              <mat-label>Facility Id</mat-label>
+              <input matInput  formControlName="facilityId" #facilityId>
+            </mat-form-field>
+          </div> 
+          <div class="form-group col-md-2">
+            <mat-form-field class="fieldshover">  
+              <mat-label>Project Manager</mat-label>  
+              <mat-select placeholder="Project Manager"  formControlName="projectManagerCode">    
+                  <mat-option value=""> </mat-option>
+                  <mat-option *ngFor="let projectManager of projectManagers" [value]="projectManager?.projectManagerCode" > {{projectManager?.projectManagerDescription}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+          <div class="form-group col-md-2 ">
+            <mat-form-field class="fieldshover">  
+              <mat-label>Region</mat-label>  
+              <mat-select placeholder="Region"  formControlName="regionCode">    
+                  <mat-option *ngFor="let region of regions" [value]="region?.regionCode" > {{region?.regionDescription}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+
+          <div class="form-group col-md-2 ">    
+            <mat-form-field class="fieldshover">
+              <input class="input-group" formControlName="siteZipcode" type="text" placeholder="Zipcode" aria-label="Zipcode" matInput [matAutocomplete]="auto">
+              <mat-autocomplete  #auto="matAutocomplete">
+                <mat-option *ngFor="let zip of filteredZips | async" [value]="zip.zipCode1">
+                  {{zip.zipCode1}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div> 
+
+      <!-- Site Name / County-->
+        <div class="form-row full-width fielddefaultbackground">
+          <div class="form-group col-md-8">
+            <mat-form-field class="fieldshover">
+              <mat-label>Site Name</mat-label>
+              <input matInput formControlName="siteName">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">  
+              <mat-label>County</mat-label>  
+              <mat-select placeholder="County"  formControlName="siteCounty">    
+                  <mat-option value=""> </mat-option>    
+                  <mat-option *ngFor="let county of counties" [value]="county?.countyCode" > {{county?.countyName}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+        </div>
+
+      <!-- Address / City-->
+
+        <div class="form-row full-width fielddefaultbackground">
+          <div class="form-group col-md-8">
+            <mat-form-field class="fieldshover">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="siteAddress">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">  
+              <input class="input-group" formControlName="siteCity" type="text" placeholder="City" aria-label="City" matInput [matAutocomplete]="autoy">
+              <mat-autocomplete  #autoy="matAutocomplete">
+                <mat-option *ngFor="let city of filteredCities | async" [value]="city?.placeName2">
+                  {{city?.placeName}}
+                </mat-option>
+              </mat-autocomplete>  
+            </mat-form-field>    
+          </div>
+        </div>    
+
+        <!-- release type / site type / file status -->
+        <div class="form-row full-width fielddefaultbackground">
+          <div class="form-group col-md-4 ">
+            <mat-form-field class="fieldshover">  
+              <mat-label>Release Type</mat-label>  
+              <mat-select placeholder="Release Type"  formControlName="releaseSiteTypeCode">    
+                <mat-option value=""> </mat-option>    
+                <mat-option *ngFor="let siteType of siteTypes" [value]="siteType?.siteTypeCode" > {{siteType?.siteType}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+          <div class="form-group col-md-4 ">
+            <mat-form-field class="fieldshover">  
+              <mat-label>Site Type</mat-label>  
+              <mat-select placeholder="Site Type"  formControlName="cleanupSiteTypeId">     
+                <mat-option *ngFor="let cleanupSiteType of cleanupSiteTypes" [value]="cleanupSiteType?.cleanupSiteTypeId" > {{cleanupSiteType?.cleanupSiteTypeDescription}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+          <div class="form-group col-md-4 ">
+            <mat-form-field class="fieldshover">  
+              <mat-label>File Status</mat-label>  
+              <mat-select placeholder="File Status"  formControlName="fileStatusId">    
+                <mat-option *ngFor="let fileStatus of fileStatuses" [value]="fileStatus?.fileStatusTypeID" > {{fileStatus?.fileStatusTypeDescription}}</mat-option>  
+              </mat-select>    
+            </mat-form-field>    
+          </div>
+        </div>
+
+        <!-- Contacts First Name / Last Name / Organization-->
+        <div class="form-row full-width fielddefaultbackground">
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">
+              <mat-label>Contact First Name</mat-label>
+              <input matInput formControlName="contactFirstName">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">
+              <mat-label>Contact Last Name</mat-label>
+              <input matInput formControlName="contactLastName">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-4">
+            <mat-form-field class="fieldshover">
+              <mat-label>Organization</mat-label>
+              <input matInput formControlName="contactOrganization">
+            </mat-form-field>
+          </div> 
+        </div>
+
+        
+        <div class="form-row full-width fielddefaultbackground">
+          <mat-card class="col-md-6 fielddefaultbackground">
+            <div class="form-row full-width fielddefaultbackground">
+              <div class="form-group col-md-4">
+                <mat-form-field class="fieldshover ">  
+                  <mat-label>Date Comparison 1</mat-label>  
+                  <mat-select placeholder="Date Comparison 1"  formControlName="compareDate1Id">    
+                    <mat-option *ngFor="let dateCompare of dateCompares" [value]="dateCompare?.id" > {{dateCompare?.dateComparision}}</mat-option>  
+                  </mat-select>    
+                </mat-form-field>    
+              </div>
+              <div class="form-group col-md-4">
+                <mat-form-field class="fieldshover">
+                  <mat-label>From Date</mat-label> 
+                  <input matInput [matDatepicker]="compareDate1IdFromDate" formControlName="compareDate1IdFromDate" placeholder="From date">
+                  <mat-datepicker-toggle matSuffix [for]="compareDate1IdFromDate"></mat-datepicker-toggle>
+                  <mat-datepicker #compareDate1IdFromDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-4">
+                <mat-form-field class="fieldshover">
+                  <mat-label>To Date</mat-label> 
+                  <input matInput [matDatepicker]="compareDate1IdToDate" formControlName="compareDate1IdToDate" placeholder="From date">
+                  <mat-datepicker-toggle matSuffix [for]="compareDate1IdToDate"></mat-datepicker-toggle>
+                  <mat-datepicker #compareDate1IdToDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card>
+          <mat-card class="col-md-6 fielddefaultbackground">
+            <div class="form-row full-width">
+              <div class="form-group col-md-4 ">
+                <mat-form-field class="fieldshover">  
+                    <mat-label>Date Comparison 2</mat-label>  
+                    <mat-select placeholder="Date Comparison 2"  formControlName="compareDate2Id">    
+                      <mat-option *ngFor="let dateCompare of dateCompares" [value]="dateCompare?.id" > {{dateCompare?.dateComparision}}</mat-option>  
+                    </mat-select>    
+                  </mat-form-field>    
+              </div>
+              <div class="form-group col-md-4">
+                  <mat-form-field class="fieldshover">
+                    <mat-label>From Date</mat-label> 
+                    <input matInput [matDatepicker]="compareDate2IdFromDate" formControlName="compareDate2IdFromDate" placeholder="From date">
+                    <mat-datepicker-toggle matSuffix [for]="compareDate2IdFromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #compareDate2IdFromDate></mat-datepicker>
+                  </mat-form-field>
+              </div>
+              <div class="form-group col-md-4">
+                    <mat-form-field class="fieldshover">
+                      <mat-label>To Date</mat-label> 
+                      <input matInput [matDatepicker]="compareDate2IdToDate" formControlName="compareDate2IdToDate" placeholder="From date">
+                      <mat-datepicker-toggle matSuffix [for]="compareDate2IdToDate"></mat-datepicker-toggle>
+                      <mat-datepicker #compareDate2IdToDate></mat-datepicker>
+                    </mat-form-field>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      <div>
+    </div>
+
+    <br/>
+
+    <div class="form-row full-width fielddefaultbackground">  
+      <div class="form-group col-md-6">
+        <mat-form-field class="fieldshover">  
+          <mat-label>Site Status</mat-label>  
+          <mat-select placeholder="Tank Status"  formControlName="tankStatusId">    
+            <mat-option value=""> </mat-option>    
+            <mat-option *ngFor="let tankStatus of tankStatuses" [value]="tankStatus?.tankStatusId" > {{tankStatus?.tankStatusDescription}}</mat-option>  
+          </mat-select>    
+        </mat-form-field>    
+      </div>
+      <div class="form-group col-md-6">
+          <div class="form-check">
+              <label class="form-check-label fieldshover">
+                  <!-- <input class="form-check-input" type="checkbox" formControlName="heatingOil"> Heating Oil    -->
+                  <mat-checkbox color="primary" formControlName="hotAuditRejectInd"> HOT Audit/Reject </mat-checkbox>
+              </label>
+          </div>
+       </div> 
+     </div>        
+     
+     </mat-card-content>
+
+        <div class="form-group row fielddefaultbackground">  
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block btn-block-auto-width">Search</button>    
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+              <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="resetLustSearchFilterForm()" >Clear</button>    
+          </div> 
+          <!-- <div *ngIf="isSearchOnly === false; then showCreateIncidentButton"></div>  
+          <ng-template #showCreateIncidentButton>   
+          <div class="col-sm-2 col-md-2 col-lg-2"> 
+            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="createIncident()" >Create Incident</button>    
+          </div>  
+          </ng-template> -->
+        </div>     
+          
+      </form>    
+    </mat-card-content>    
+  </mat-card>  
+
+  <!-- Scroll to top of control (grid list) -->
+  <div id='topSearchResults'></div>
+  
+  <div *ngIf="showLustSearchResultsFlag==true; then showResultComp ">  </div> 
+  <ng-template #showResultComp>
+    <app-lust-search-result [lustSearchFilter]="lustSearchFilter" [isSearchOnly]="isSearchOnly" ></app-lust-search-result>
+  </ng-template>
+  <div id="bottomOfForm"></div>
+</div>

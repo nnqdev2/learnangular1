@@ -1,0 +1,14 @@
+@media print {
+
+    @page { margin: 0;}
+    body { margin: 1.6cm;}
+    
+    .noprint {
+      display:none;
+    }
+
+  }
+
+  .mat-tab-label-container{
+    background-color: green;
+  }

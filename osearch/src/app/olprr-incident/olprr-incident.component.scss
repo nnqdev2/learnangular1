@@ -1,0 +1,90 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+  height: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+// mat-card{
+//   padding: 4px;
+//   background-color: rgb(247, 245, 245);
+// }
+
+// md-card{
+// width: 20em;
+// }
+// .example-container > * {
+//   width: 100%;
+//   height: auto;
+// }
+
+// mat-form-field {
+//   width:100%;
+// }
+
+
+// mat-card-title { 
+// background-color: darkSeaGreen !important; 
+// }
+
+// mat-card-content {
+// padding-bottom: 0%;
+
+// }
+
+.mat-input-container {
+margin-bottom: .5em;
+}     
+
+.example-container {
+display: flex;
+flex-direction: column;
+}
+
+.example-container > * {
+width: 100%;
+height: auto;
+}
+
+
+
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+.input-group.required .control-label:after{
+content:"*";
+color:red;
+}
+
+#dateReleaseDiscovered {
+height: 38px;
+padding: 6px 12px;
+}
+
+.btn-outline-secondary {
+height: 38px;
+padding: 4px 2px;
+}
+
+.btn-outline-secondary img {
+height: 30px;
+}
+
+

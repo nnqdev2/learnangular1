@@ -1,0 +1,81 @@
+<mat-card>
+    <mat-card-content class="fielddefaultbackground">
+        <div class="search-result">
+            <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
+                <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+            </div>
+            <div class="form-group row fielddefaultbackground">  
+                <div class="col-sm-10 col-md-10 col-lg-10"></div>
+                <div *ngIf="totalRows > 0">
+                    <div class="col-sm-2 col-md-2 col-lg-2"> 
+                        <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                    </div>
+                </div>
+            </div>
+            <div class="responsive-table mat-table-consultant">
+                <mat-table class="child-table search-results-table table-hover mat-table-consultant" cdkScrollable [dataSource]="dataSource"
+                            matSort  matSortActive="consultantId" matSortDirection="asc" matSortDisableClear >
+                    <ng-container matColumnDef="consultantId">
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                    <div  *ngIf="showAdd"> 
+                        <mat-cell *matCellDef="let consultantSearchResultStat"> 
+                            <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(consultantSearchResultStat) ">Edit</button>
+                            <button mat-raised-button color="primary" class="btn btn-space-table btn-success btn-md" (click)="onDelete(consultantSearchResultStat) ">Delete</button> 
+                        </mat-cell>
+                    </div>
+                    <div  *ngIf="!showAdd"> 
+                        <mat-cell *matCellDef="let consultantSearchResultStat"> 
+                            <button mat-raised-button color="primary" class="btn btn-success btn-md" (click)="onEdit(consultantSearchResultStat) ">View</button> 
+                        </mat-cell>
+                    </div>
+                    </ng-container>
+                    <ng-container matColumnDef="companyName">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >Company Name</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.companyName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="address">
+                        <mat-header-cell *matHeaderCellDef  >Address</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.address}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="city">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >City</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.city}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="state">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >State</mat-header-cell>
+                    <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.state}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="zipCode">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >ZipCode</mat-header-cell>
+                    <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.zipCode}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="phone">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header >Phone</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.phone}}</mat-cell>
+                    </ng-container>              
+                    <ng-container matColumnDef="fax">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >Fax</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.fax}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >Email</mat-header-cell>
+                        <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.email}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="lastChangeBy">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >Last Change By</mat-header-cell>
+                    <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.lastChangeBy}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="lastChangeDate">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >Last Change Date</mat-header-cell>
+                    <mat-cell *matCellDef="let consultantSearchResultStat">{{consultantSearchResultStat.lastChangeDate | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+                    <!-- <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row> -->
+                </mat-table>
+            </div>
+            <mat-paginator [length]="totalRows" [pageSize]="40"
+            [pageSizeOptions]="[30, 40, 50, 100]" ></mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>

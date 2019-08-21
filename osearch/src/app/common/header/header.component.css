@@ -1,0 +1,24 @@
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: white; 
+    text-align:right;
+  }
+
+
+  .deqTitle {
+    width: 95%; 
+    height: 75px; 
+    text-align:left; 
+    background-color: #455B1B; 
+    color: #fff;
+  }
+
+
+  a[href="tel:"] {
+    color: white;
+    
+  }

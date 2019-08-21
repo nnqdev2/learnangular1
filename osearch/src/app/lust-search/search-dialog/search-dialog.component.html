@@ -1,0 +1,13 @@
+<mat-dialog-content>
+    <div *ngIf="data.searchType==='Contact'; then showContactSearch; else showUstSearch"></div>
+    <ng-template #showContactSearch> 
+        <app-contact-search-filter (rowSelected)="onContactSelected($event)" ></app-contact-search-filter>
+    </ng-template>
+    <ng-template #showUstSearch> 
+        <app-ust-search-filter (rowSelected)="onUstSelected($event)" ></app-ust-search-filter>
+    </ng-template>
+</mat-dialog-content>
+<div mat-dialog-actions>  
+    <button mat-raised-button color="primary" type="button" class="btn-success" [mat-dialog-close]="">Close </button>
+</div>
+

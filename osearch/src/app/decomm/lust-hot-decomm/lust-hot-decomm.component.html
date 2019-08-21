@@ -1,0 +1,227 @@
+<div class="loading-indicator" *ngIf="loading$  | async; else showForm">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<ng-template #showForm>
+    <div class="container-fluid">
+        <form [formGroup]="myForm" class="form fielddefaultbackground" role="form" autocomplete="off" method="POST"  (ngSubmit)="onSubmit()">
+            <mat-card class="remove-padding">    
+                <mat-card-title class="mat-card-headertitle-background">LUST HOTC Decommissioning</mat-card-title>
+                <mat-card-content> 
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group required col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="logNumber">Log Number</mat-label>
+                                <input matInput placeholder="Log Number" formControlName="logNumber">
+                            </mat-form-field>                        
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="hotId">Hot Id</mat-label>
+                                <input matInput placeholder="Hot Id" formControlName="hotId">
+                            </mat-form-field>                         
+                        </div>
+                        <div class="form-group col-sm-4 col-md-2 col-lg-2 col-xl-2"></div>
+                        <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="todayDate">Today Date</mat-label>
+                                <input matInput placeholder="Today Date" formControlName="todayDate">
+                            </mat-form-field>           
+                        </div>
+                    </div>
+                </mat-card-content> 
+            </mat-card>
+            <div class="col-md-12" style="padding-left: 0px;">
+                <app-lust-contacts [lustHotcGet]="lustHotcGet" (rowSelected)="onContactSelected($event)"></app-lust-contacts> 
+            </div>
+            <mat-card class="remove-padding">
+                <mat-card-title class="mat-card-headertitle-background">Decommissioning Info</mat-card-title>
+                <mat-card-content> 
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group col-md-12">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="status">Status</mat-label>
+                                <input matInput placeholder="Status" formControlName="status">
+                            </mat-form-field>                         
+                        </div>
+                    </div>
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group required fieldshover col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">     
+                                <mat-radio-group  required  formControlName="serviceProviderType">
+                                    <mat-radio-button color="primary" disableRipple (change)="onChange($event)" value="1">Home Owner</mat-radio-button>
+                                    <mat-radio-button color="primary" disableRipple (change)="onChange($event)" value="2">Service Provider</mat-radio-button>
+                                </mat-radio-group>
+                            <app-show-errors [control]="myForm.controls.serviceProviderType"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                        <div *ngIf="myForm.controls.serviceProviderType.value==='2'; then showSPI"></div>
+                        <ng-template #showSPI> 
+                            <div class="form-group required col-xs-12 col-sm-4 col-md-2 col-lg-3 col-xl-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="serviceProviderId">Service Provider Id</mat-label>
+                                    <input matInput placeholder="Service Provider Id" formControlName="serviceProviderId">
+                                </mat-form-field>       
+                                <app-show-errors [control]="myForm.controls.serviceProviderId"  [submitClicked]="submitClicked"></app-show-errors>                  
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="serviceProviderFullName">Service Provider Full Name</mat-label>
+                                    <input matInput placeholder="Service Provider Info" formControlName="serviceProviderFullName">
+                                </mat-form-field>                         
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-3 col-md-4 col-lg-3 col-xl-3">
+                                <mat-form-field class="fieldshover">
+                                    <mat-label class="control-label" for="serviceProviderStatus">Service Provider Status</mat-label>
+                                    <input matInput placeholder="Service Provider Status" formControlName="serviceProviderStatus">
+                                </mat-form-field>                         
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group required col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="decommDate">Decomm Date</mat-label>
+                            <input matInput [max]="maxDate" [matDatepicker]="decommDate"  formControlName="decommDate">
+                                <mat-datepicker-toggle matSuffix [for]="decommDate"></mat-datepicker-toggle>
+                                <mat-datepicker #decommDate [startAt]="maxDate" ></mat-datepicker>
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.decommDate"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                        <div class="form-group required col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="checkReceivedDate">Check Recvd Date</mat-label>
+                            <input matInput [max]="maxDate" [matDatepicker]="checkReceivedDate"  formControlName="checkReceivedDate">
+                                <mat-datepicker-toggle matSuffix [for]="checkReceivedDate"></mat-datepicker-toggle>
+                                <mat-datepicker #checkReceivedDate [startAt]="maxDate" ></mat-datepicker>
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.checkReceivedDate"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="auditDate">Audit Date</mat-label>
+                            <input matInput [matDatepicker]="auditDate"  formControlName="auditDate">
+                                <mat-datepicker-toggle matSuffix [for]="auditDate"></mat-datepicker-toggle>
+                                <mat-datepicker #auditDate  ></mat-datepicker>
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.auditDate"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                    </div>
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group required col-xs-12 col-sm-3 col-md-4 col-lg-4 col-xl-4">
+                            <mat-form-field class="fieldshover">
+                            <mat-label class="control-label" for="fileClosedDate">File Closed Date</mat-label>
+                            <input matInput [max]="maxDate" [matDatepicker]="fileClosedDate"  formControlName="fileClosedDate">
+                                <mat-datepicker-toggle matSuffix [for]="fileClosedDate"></mat-datepicker-toggle>
+                                <mat-datepicker #fileClosedDate [startAt]="maxDate" ></mat-datepicker>
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.fileClosedDate"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                        <div class="form-group required col-xs-12 col-sm-3 col-md-4 col-lg-4 col-xl-4">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="checkNbr">Check Nbr</mat-label>
+                                <input matInput placeholder="Check Nbr" formControlName="checkNbr">
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.checkNbr"  [submitClicked]="submitClicked"></app-show-errors>                         
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-3 col-md-4 col-lg-4 col-xl-4">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="reportRejected">Report Rejected</mat-label>
+                                <input matInput placeholder="reportRejected" formControlName="reportRejected">
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.reportRejected"  [submitClicked]="submitClicked"></app-show-errors>                         
+                        </div>
+                    </div>
+                    <div class="form-row full-width fielddefaultbackground remove-margin-left">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">     
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="decommType">Decomm Type</mat-label>
+                                <mat-select formControlName="decommType" >
+                                    <mat-option selected="selected" value=""></mat-option>
+                                    <mat-option *ngFor="let x of hotcDecommTypes" [value]="x?.sid" >{{x?.descript}}</mat-option>                                               
+                                </mat-select>
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.decommType"  [submitClicked]="submitClicked"></app-show-errors>
+                        </div> 
+                        <div class="form-group required col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <mat-form-field class="fieldshover">
+                                <mat-label class="control-label" for="feeAmt">Fee Amt</mat-label>
+                                <input matInput placeholder="Fee Amt" formControlName="feeAmt">
+                            </mat-form-field>
+                            <app-show-errors [control]="myForm.controls.feeAmt"  [submitClicked]="submitClicked"></app-show-errors>                         
+                        </div>
+                    </div>
+
+ 
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="mat-expansion-panel-header">
+                                <mat-panel-title class="mat-panel-title-text-align">
+                                    Comment
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-card-content>
+                                <div class="form-row full-width example-container mat-card-subtitle-background">
+                                    <!-- <mat-label class="control-label" for="comment" sytle="padding-top:5px;">Comment</mat-label> -->
+                                    <mat-form-field class="example-full-width fieldshover site-photo-caption-entry">
+                                        <textarea matInput matTextareaAutoSize formControlName="comment" matAutosizeMinRos=1 matAutosizeMaxRows=10></textarea>
+                                    </mat-form-field>  
+                                </div>  
+                            </mat-card-content>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+ 
+
+                        <!-- <div class="form-row full-width">
+                            <div class="form-group required col-md-12">
+                                <mat-form-field>
+                                    <mat-label class="control-label" for="status">Status</mat-label>
+                                    <input matInput placeholder="Status" formControlName="status">
+                                </mat-form-field>                         
+                            </div>
+                        </div> -->
+                    </mat-card-content> 
+                </mat-card>
+
+
+
+            
+            <!-- <div *ngIf=" showAllErrorsMessages; then showAllErrorsMessages"></div>
+            <ng-template #showAllErrorsMessages> 
+                <mat-card>
+                    <mat-card-content>
+                        <ngb-alert *ngIf="!isClosed" [type]="warning" (close)="isClosed=true">
+                        <div class="form-group row">
+                            <app-show-all-messages [messages]="findInvalidControls()"  [submitClicked]="submitClicked"></app-show-all-messages>
+                        </div>
+                        </ngb-alert>
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>              -->
+            <mat-card class="remove-padding">
+                <mat-card-actions>
+                    <div class="form-row full-width remove-margin-left">
+                        <ng-container *ngIf="showStatusButtons">
+                        <div class="col-md-2">
+                            <button mat-raised-button color="primary" type="submit" class="btn btn-success btn-md btn-block" >Save</button>
+                        </div>
+                        <div *ngIf="hotId > 0"  class="form-group  col-md-2">
+                            <div class="form-row full-width">
+                                <div class="form-group col-md-12">
+                                    <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onPrintLetter()" >Print Letter</button>
+                                </div>
+                            </div>
+                        </div>  
+                        <!-- <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-default btn-md btn-block" (click)="onResetForm()" >Reset Form</button>
+                        </div>   -->
+                        </ng-container>
+                        <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onLustIncident()" >Go to Lust Incident</button>
+                        </div> 
+                        <div class="col-md-2 ">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block" (click)="onCancel()" >{{returnToSearch}}</button>
+                        </div>             
+                    </div>
+                </mat-card-actions> 
+            </mat-card>
+        </form>
+    </div>
+</ng-template>

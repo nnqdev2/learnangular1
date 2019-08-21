@@ -1,0 +1,69 @@
+<mat-card>
+    <mat-card-content>
+        <div class="search-result">
+            <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
+                <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+            </div>
+                <div class="form-group row fielddefaultbackground">  
+                    <div class="col-sm-10 col-md-10 col-lg-10"></div>
+                    <div *ngIf="totalRows > 0">
+                        <div class="col-sm-2 col-md-2 col-lg-2"> 
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md btn-block btn-block-auto-width" (click)="genExcel()" >{{exportToCsv}}</button>       
+                        </div>
+                    </div>
+                </div>
+                <div class="responsive-table">
+                <mat-table class="child-table search-results-table table-hover" cdkScrollable [dataSource]="dataSource"
+                            matSort  matSortActive="id" matSortDirection="asc" matSortDisableClear >
+                    <ng-container matColumnDef="reqPageNumber" >
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat"> 
+                            <button mat-raised-button color="primary" type="button" class="btn btn-success btn-md" (click)="onEdit(hotcSearchResultStat) ">Select</button>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="searchType">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >Type</mat-header-cell>
+                    <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.searchType}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="logNumber">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >LogNumber/HotId</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.logNumber}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="hotAddress">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >Address</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.hotAddress}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="finalInvRqstDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header >Final Inv Rqst Date</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.finalInvRqstDate  | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="closedDate">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >Closed Date</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.closedDate  | date:'MM/dd/yyyy'}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="city">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header >City</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.city}}</mat-cell>
+                    </ng-container>              
+                    <ng-container matColumnDef="zipCode">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >ZipCode</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.zipCode}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="county">
+                        <mat-header-cell *matHeaderCellDef  mat-sort-header >County</mat-header-cell>
+                        <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.county}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="year">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header >Year</mat-header-cell>
+                    <mat-cell *matCellDef="let hotcSearchResultStat">{{hotcSearchResultStat.year}}</mat-cell>
+                </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
+                    <!-- <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row> -->
+                </mat-table>
+            </div>
+            <mat-paginator [length]="totalRows" [pageSize]="40"
+            [pageSizeOptions]="[30, 40, 50, 100]" ></mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>

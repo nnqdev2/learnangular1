@@ -1,0 +1,36 @@
+export class HotcDecomm {
+    hotId: number;
+    dhotCounty: string;
+    dhotYear: string;
+    hotStreetNbr: string;
+    hotStreetQuad: string;
+    hotStreetNm: string;
+    hotStreetType: string;
+    hotAddrCmnt: string;
+    hotCity: string;
+    hotZip: string;
+    rpFirstNm: string;
+    rpLastNm: string;
+    rpCompanyNm: string;
+    rpStreetNbr: string;
+    rpStreetQuad: string;
+    rpStreetNm: string;
+    rpStreetType: string;
+    rpAddrCmnt: string;
+    rpCity: string;
+    rpState: string;
+    rpZip: string;
+    decommissionDate: Date;
+    fileClosedDate: Date;
+    hotSpId: string;
+    checkReceivedDate: Date;
+    decommType: string;
+    checkNbr: string;
+    feeAmt: number;
+    auditDate: Date;
+    reportRejected: string;
+    hotComments: string;
+    personId: number;
+    fullName: string;
+    licenseStatus: string;
+}
